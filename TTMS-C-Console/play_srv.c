@@ -1,13 +1,14 @@
 #include "play_srv.h"
 #include "List.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include "basicMove.h"
 
 // 生成新增Play的ID，返回并加1
 int play_srv_getID()
 {
-	play_unassignedID++;
-	return play_unassignedID - 1;
+	newID(play_unassignedID);
 }
 
 //用于生成一个play_t，注意返回值
@@ -28,24 +29,13 @@ play_t play_srv_generate(int ID, char name[51], char type[21], char area[11], pl
 
 void play_srv_add(play_t inputPlay_t) //影片的添加
 {
-	play_node_t* thisOne = (play_node_t*)malloc(sizeof(play_node_t));
-	thisOne->data = inputPlay_t;
-	List_AddTail(play_head, thisOne);
+	type_srv_add(play_t, inputPlay_t, play_node_t, play_head);
 }
 
 //按照ID查找，返回play_list_t.没找到则返回NULL
 play_list_t play_srv_findByID(int inputID)
 {
-	play_list_t thisOne = play_head->next;
-	while (thisOne != play_head)
-	{
-		if (thisOne->data.ID == inputID)
-		{
-			return thisOne;
-		}
-		thisOne = thisOne->next;
-	}
-	return NULL;
+	type_srv_findByID(play_t, inputID, play_node_t, play_head);
 }
 
 //删除play，不解决删除play引起的其他问题

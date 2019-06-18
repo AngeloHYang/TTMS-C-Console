@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="account_pers.c" />
+    <ClCompile Include="account_srv.c" />
     <ClCompile Include="common.c" />
     <ClCompile Include="listTestDrv.c" />
     <ClCompile Include="play_pers.c" />
@@ -162,6 +164,9 @@
     <ClCompile Include="TTMS.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="account_pers.h" />
+    <ClInclude Include="account_srv.h" />
+    <ClInclude Include="basicMove.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="listTestDrv.h" />

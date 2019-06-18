@@ -63,6 +63,12 @@
     <ClCompile Include="play_pers.c">
       <Filter>源文件\Persistence</Filter>
     </ClCompile>
+    <ClCompile Include="account_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="account_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -85,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="play_pers.h">
       <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="account_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="account_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="basicMove.h">
+      <Filter>头文件\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

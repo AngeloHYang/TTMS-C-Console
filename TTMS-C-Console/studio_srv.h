@@ -30,7 +30,7 @@ extern studio_t studio_srv_generate(int ID, char* name, int rowsCount, int colsC
 //负责将完整的studio_t添加到链表
 extern void studio_srv_add(studio_t inputStudio_t);
 
-extern void studio_printAll();
+extern void studio_srv_printAll();
 
 //按照ID查找，返回studio_list_t.没找到则返回NULL
 extern studio_list_t studio_srv_findByID(int inputID);

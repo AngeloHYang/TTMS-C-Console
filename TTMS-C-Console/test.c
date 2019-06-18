@@ -3,23 +3,33 @@
 #include <string.h>
 #include "studio_srv.h"
 #include "play_srv.h"
+#include "basicMove.h"
 
-void test()
+#define doSomething(function)\
+(*funtion)();
+
+void printHello()
 {
-	if (chdir())
+	printf("Hello\n");
+}
 
+void printBye()
+{
+	printf("Bye\n");
+}
+
+int test()
+{
 	system("cls");
+	
+	
 	extern void all_Load();
 	all_Load();
 	
-	ttms_date_t asd = { 1, 1, 1 };
-
-	play_srv_add(play_srv_generate(play_srv_getID(), "a", "b", "c", 1, 123, asd, asd, 3));
-
-	printf("delete: %d\n\n\n", play_srv_deleteByID(1));
-
-	play_printAll();
-
+	doSomething(printHello);
+	doSomething(printBye);
 	extern void all_Save();
 	all_Save();
+
+	
 }

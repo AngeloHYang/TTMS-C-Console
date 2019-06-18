@@ -1,8 +1,9 @@
 #include "studio_srv.h"
 #include "List.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
-
+#include "basicMove.h"
 
 //private:
 
@@ -17,8 +18,7 @@ static struct studio_node* fakePointerToRealPointer()
 // 生成新增Studio的ID，返回并加1
 int studio_srv_getID()
 {
-	studio_unassignedID++;
-	return studio_unassignedID - 1;
+	newID(studio_unassignedID);
 }
 
 //用于生成一个studio_t，注意返回值
@@ -35,14 +35,16 @@ studio_t studio_srv_generate(int ID, char* name, int rowsCount, int colsCount)
 //负责将完整的studio_t添加到链表
 void studio_srv_add(studio_t inputStudio_t)
 {
+	/*
 	// 基本struct封装成带next和prev
 	studio_list_t thisOne = (studio_list_t)malloc(sizeof(studio_node_t));
 	thisOne->data = inputStudio_t;
 	List_AddTail(studio_head, thisOne);
-	//printf("You just added %d %s %d %d\n", thisOne->data.ID, thisOne->data.name, thisOne->data.rowsCount, thisOne->data.colsCount);
+	//printf("You just added %d %s %d %d\n", thisOne->data.ID, thisOne->data.name, thisOne->data.rowsCount, thisOne->data.colsCount);*/
+	type_srv_add(studio_t, inputStudio_t, studio_node_t, studio_head);
 }
 
-void studio_printAll()
+void studio_srv_printAll()
 {
 	studio_list_t swap = studio_head->next;
 	int counter = 1;
@@ -62,6 +64,7 @@ void studio_printAll()
 //按照ID查找，返回studio_list_t.没找到则返回NULL
 studio_list_t studio_srv_findByID(int inputID)
 {
+	/*
 	studio_list_t thisOne = studio_head->next;
 	while (thisOne != studio_head)
 	{
@@ -71,7 +74,8 @@ studio_list_t studio_srv_findByID(int inputID)
 		}
 		thisOne = thisOne->next;
 	}
-	return NULL;
+	return NULL;*/
+	type_srv_findByID(studio_t, inputID, studio_node_t, studio_head);
 }
 
 //删除studio，不解决删除studio引起的其他问题
