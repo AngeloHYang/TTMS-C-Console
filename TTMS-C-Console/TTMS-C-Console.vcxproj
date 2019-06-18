@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClCompile Include="common.c" />
     <ClCompile Include="listTestDrv.c" />
+    <ClCompile Include="play_pers.c" />
+    <ClCompile Include="play_srv.c" />
     <ClCompile Include="totalLoadANDSave.c" />
     <ClCompile Include="studio_pers.c" />
     <ClCompile Include="studio_srv.c" />
@@ -163,6 +165,8 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="listTestDrv.h" />
+    <ClInclude Include="play_pers.h" />
+    <ClInclude Include="play_srv.h" />
     <ClInclude Include="studio_pers.h" />
     <ClInclude Include="studio_srv.h" />
   </ItemGroup>

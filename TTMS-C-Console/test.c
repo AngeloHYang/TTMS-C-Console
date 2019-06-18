@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "studio_srv.h"
-#include "studio_pers.h"
+#include "play_srv.h"
 
 void test()
 {
@@ -12,16 +12,13 @@ void test()
 	extern void all_Load();
 	all_Load();
 	
+	ttms_date_t asd = { 1, 1, 1 };
 
-	studio_srv_add(studio_srv_generate(studio_srv_getID(), "a", 3, 3));
-	studio_srv_add(studio_srv_generate(studio_srv_getID(), "b", 4, 4));
-	studio_srv_add(studio_srv_generate(studio_srv_getID(), "del", 3, 3));
-	studio_srv_deleteByID(3);
-	printf("new ID: %d\n", studio_srv_getID());
-	printf("new ID: %d\n", studio_srv_getID());
-	printf("new ID: %d\n", studio_srv_getID());
+	play_srv_add(play_srv_generate(play_srv_getID(), "a", "b", "c", 1, 123, asd, asd, 3));
 
-	studio_printAll();
+	printf("delete: %d\n\n\n", play_srv_deleteByID(1));
+
+	play_printAll();
 
 	extern void all_Save();
 	all_Save();

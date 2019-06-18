@@ -39,7 +39,7 @@ void studio_srv_add(studio_t inputStudio_t)
 	studio_list_t thisOne = (studio_list_t)malloc(sizeof(studio_node_t));
 	thisOne->data = inputStudio_t;
 	List_AddTail(studio_head, thisOne);
-	printf("You just added %d %s %d %d\n", thisOne->data.ID, thisOne->data.name, thisOne->data.rowsCount, thisOne->data.colsCount);
+	//printf("You just added %d %s %d %d\n", thisOne->data.ID, thisOne->data.name, thisOne->data.rowsCount, thisOne->data.colsCount);
 }
 
 void studio_printAll()
@@ -59,7 +59,7 @@ void studio_printAll()
 	}
 }
 
-//按照ID查找，没找到则返回NULL
+//按照ID查找，返回studio_list_t.没找到则返回NULL
 studio_list_t studio_srv_findByID(int inputID)
 {
 	studio_list_t thisOne = studio_head->next;
@@ -86,6 +86,22 @@ int studio_srv_deleteByID(int inputID)
 	else
 	{
 		List_DelNode(thisOne);
+		return 1;
+	}
+}
+
+//输入studio_t以修改
+// 修改成功返回1,否则0
+int studio_srv_modifyByStudio_t(studio_t inputStudio_t)
+{
+	studio_list_t thisOne = studio_srv_findByID(inputStudio_t.ID);
+	if (thisOne == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		thisOne->data = inputStudio_t;
 		return 1;
 	}
 }

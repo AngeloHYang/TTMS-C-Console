@@ -25,14 +25,14 @@
     <Filter Include="源文件\Persistence">
       <UniqueIdentifier>{e929e399-e714-49d3-9e83-dc141c6e2abe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\UI">
-      <UniqueIdentifier>{86a4f494-3695-49d3-9c2c-505f72eefce4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Service">
       <UniqueIdentifier>{06bfcc6e-3878-4313-b321-c12760c5e9f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\Persistence">
       <UniqueIdentifier>{1e6c6aa1-64bb-4cf5-81f3-0c8458346f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI">
+      <UniqueIdentifier>{86a4f494-3695-49d3-9c2c-505f72eefce4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +57,12 @@
     <ClCompile Include="totalLoadANDSave.c">
       <Filter>源文件\Service</Filter>
     </ClCompile>
+    <ClCompile Include="play_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="play_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -72,6 +78,12 @@
       <Filter>头文件\Service</Filter>
     </ClInclude>
     <ClInclude Include="studio_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="play_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="play_pers.h">
       <Filter>头文件\Persistence</Filter>
     </ClInclude>
   </ItemGroup>

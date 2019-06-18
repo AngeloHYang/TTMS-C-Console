@@ -32,8 +32,13 @@ extern void studio_srv_add(studio_t inputStudio_t);
 
 extern void studio_printAll();
 
-//按照ID查找，没找到则返回NULL
+//按照ID查找，返回studio_list_t.没找到则返回NULL
 extern studio_list_t studio_srv_findByID(int inputID);
 
 //删除studio，不解决删除studio引起的其他问题
 extern int studio_srv_deleteByID(int inputID);
+
+
+//输入studio_t以修改
+// 修改成功返回1,否则0
+extern int studio_srv_modifyByStudio_t(studio_t inputStudio_t);

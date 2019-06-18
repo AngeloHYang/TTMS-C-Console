@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "studio_pers.h"
+#include "play_pers.h"
 
 void all_Load()
 {
@@ -20,9 +21,12 @@ void all_Load()
 		//printf("Data folder exists\n");
 	}
 	studio_pers_load();
+	play_pers_load();
+	
 }
 
 void all_Save()
 {
 	studio_pers_save();
+	play_pers_save();
 }

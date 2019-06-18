@@ -49,11 +49,11 @@ void studio_pers_save()
 		// If the file fails to create
 	{
 		printf("Failed to save studio.dat\n");
-		system("pause");
+		//system("pause");
 	}
 	else
 	{
-		system("pause");
+		//system("pause");
 		fwrite(&studio_unassignedID, sizeof(int), 1, fp);
 	
 		if (List_IsEmpty(studio_head))
