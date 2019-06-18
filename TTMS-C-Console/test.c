@@ -11,25 +11,15 @@ void test()
 	system("cls");
 	extern void all_Load();
 	all_Load();
-	studio_t s;
+	
 
-	s.ID = studio_srv_getID();
-	strcpy(s.name, "a");
-	s.rowsCount = 1;
-	s.colsCount = 1;
-	studio_srv_add(s);
-
-	s.ID = studio_srv_getID();
-	strcpy(s.name, "b");
-	s.rowsCount = 2;
-	s.colsCount = 2;
-	studio_srv_add(s);
-
-	s.ID = studio_srv_getID();
-	strcpy(s.name, "c");
-	s.rowsCount = 3;
-	s.colsCount = 3;
-	studio_srv_add(s);
+	studio_srv_add(studio_srv_generate(studio_srv_getID(), "a", 3, 3));
+	studio_srv_add(studio_srv_generate(studio_srv_getID(), "b", 4, 4));
+	studio_srv_add(studio_srv_generate(studio_srv_getID(), "del", 3, 3));
+	studio_srv_deleteByID(3);
+	printf("new ID: %d\n", studio_srv_getID());
+	printf("new ID: %d\n", studio_srv_getID());
+	printf("new ID: %d\n", studio_srv_getID());
 
 	studio_printAll();
 

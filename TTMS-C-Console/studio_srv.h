@@ -24,6 +24,16 @@ extern studio_list_t studio_head;
 // 生成新增Studio的ID，返回并加1
 extern int studio_srv_getID();
 
+//用于生成一个studio_t，注意返回值
+extern studio_t studio_srv_generate(int ID, char* name, int rowsCount, int colsCount);
+
+//负责将完整的studio_t添加到链表
 extern void studio_srv_add(studio_t inputStudio_t);
 
 extern void studio_printAll();
+
+//按照ID查找，没找到则返回NULL
+extern studio_list_t studio_srv_findByID(int inputID);
+
+//删除studio，不解决删除studio引起的其他问题
+extern int studio_srv_deleteByID(int inputID);

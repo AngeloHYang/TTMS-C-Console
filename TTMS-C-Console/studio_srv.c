@@ -21,6 +21,18 @@ int studio_srv_getID()
 	return studio_unassignedID - 1;
 }
 
+//用于生成一个studio_t，注意返回值
+studio_t studio_srv_generate(int ID, char* name, int rowsCount, int colsCount)
+{
+	studio_t thisOne;
+	thisOne.ID = ID;
+	strcpy(thisOne.name, name);
+	thisOne.rowsCount = rowsCount;
+	thisOne.colsCount = colsCount;
+	return thisOne;
+}
+
+//负责将完整的studio_t添加到链表
 void studio_srv_add(studio_t inputStudio_t)
 {
 	// 基本struct封装成带next和prev
@@ -45,8 +57,35 @@ void studio_printAll()
 		counter++;
 		swap = swap->next;
 	}
+}
 
-	printf("new ID: %d\n", studio_srv_getID());
-	printf("new ID: %d\n", studio_srv_getID());
-	printf("new ID: %d\n", studio_srv_getID());
+//按照ID查找，没找到则返回NULL
+studio_list_t studio_srv_findByID(int inputID)
+{
+	studio_list_t thisOne = studio_head->next;
+	while (thisOne != studio_head)
+	{
+		if (thisOne->data.ID == inputID)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+	}
+	return NULL;
+}
+
+//删除studio，不解决删除studio引起的其他问题
+// 删除成功返回1,否则0
+int studio_srv_deleteByID(int inputID)
+{
+	studio_list_t thisOne = studio_srv_findByID(inputID);
+	if (thisOne == NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		List_DelNode(thisOne);
+		return 1;
+	}
 }
