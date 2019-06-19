@@ -52,7 +52,7 @@ int play_srv_modifyByPlay_t(play_t inputPlay_t)
 	type_srv_modifyByType_t(play_t, inputPlay_t, play_node_t, play_srv_findByID(inputPlay_t.ID));
 }
 
-void play_printAll()
+void play_srv_printAll()
 {
 	play_list_t swap = play_head->next;
 	int counter = 1;

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "List.h"
 
+#include "basicMove.h"
+
 /*
 filename: studio.dat
 content:
@@ -18,7 +20,9 @@ studio_list_t studio_head;
 void studio_pers_load()
 {
 	FILE* fp = fopen("studio.dat", "rb+");
+	studio_t swap;
 
+	/*
 	studio_head = NULL;
 	
 	List_Init(studio_head, studio_node_t);
@@ -32,44 +36,20 @@ void studio_pers_load()
 	{
 		fread(&studio_unassignedID, sizeof(int), 1, fp);
 
-		studio_t swap;
+		
 		while (fread(&swap, sizeof(studio_t), 1, fp) != 0)
 		{
 			studio_srv_add(swap);
 		}
 		fclose(fp);
-	}
+	}*/
+	type_pers_load(fp, studio_head, studio_unassignedID, studio_node_t, studio_t, studio_srv_add(swap));
 }
 
 void studio_pers_save()
 {
 	FILE* fp = fopen("studio.dat", "wb+");
+	studio_list_t swap;
 
-	if (fp == NULL)
-		// If the file fails to create
-	{
-		printf("Failed to save studio.dat\n");
-		//system("pause");
-	}
-	else
-	{
-		//system("pause");
-		fwrite(&studio_unassignedID, sizeof(int), 1, fp);
-	
-		if (List_IsEmpty(studio_head))
-		{
-			;
-		}
-		else
-		{
-			studio_list_t swap = studio_head ->next;
-			while (swap != studio_head)
-			{
-				fwrite(&(swap->data), sizeof(studio_t), 1, fp);
-				swap = swap->next;
-			}
-		}
-		
-		fclose(fp);
-	}
+	type_pers_save(fp, studio_head, studio_unassignedID, studio_node_t, studio_t, "studio.dat")
 }

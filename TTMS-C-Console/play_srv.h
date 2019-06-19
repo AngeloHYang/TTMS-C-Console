@@ -78,4 +78,4 @@ extern int play_srv_deleteByID(int inputID);
 // 修改成功返回1,否则0
 extern int play_srv_modifyByPlay_t(play_t inputPlay_t);
 
-extern void play_printAll();
+extern void play_srv_printAll();

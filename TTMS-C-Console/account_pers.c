@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "account_srv.h"
 #include "List.h"
-
+#include "basicMove.h"
 /*
 filename: account.dat
 content:
@@ -15,33 +15,17 @@ account_node_t* account_head;
 void account_pers_load()
 {
 	FILE* fp = fopen("account.dat", "rb+");
-
-	account_head = NULL;
-
-	List_Init(account_head, account_node_t);
-
-	if (fp == NULL)
-		// If the file doesn't exist
-	{
-		account_unassignedID = 1;
-	}
-	else
-	{
-		fread(&account_unassignedID, sizeof(int), 1, fp);
-
-		account_t swap;
-		while (fread(&swap, sizeof(account_t), 1, fp) != 0)
-		{
-			account_srv_add(swap);
-		}
-		fclose(fp);
-	}
+	account_t swap;
+	
+	type_pers_load(fp, account_head, account_unassignedID, account_node_t, account_t, account_srv_add(swap));
 }
 
 void account_pers_save()
 {
 	FILE* fp = fopen("account.dat", "wb+");
+	account_list_t swap;
 
+	/*
 	if (fp == NULL)
 		// If the file fails to create
 	{
@@ -59,7 +43,7 @@ void account_pers_save()
 		}
 		else
 		{
-			account_list_t swap = account_head->next;
+			swap = account_head->next;
 			while (swap != account_head)
 			{
 				fwrite(&(swap->data), sizeof(account_t), 1, fp);
@@ -68,5 +52,6 @@ void account_pers_save()
 		}
 
 		fclose(fp);
-	}
+	}*/
+	type_pers_save(fp, account_head, account_unassignedID, account_node_t, account_t, "accout.dat");
 }

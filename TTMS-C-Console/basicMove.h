@@ -51,3 +51,45 @@ else\
 	List_DelNode(thisOne);\
 	return 1;\
 }
+
+#define type_pers_load(fp, type_head, type_unassignedID, type_node_t, type_t, type_srv_addSwap)\
+type_head = NULL;\
+List_Init(type_head, type_node_t);\
+if (fp == NULL)\
+{\
+	type_unassignedID = 1;\
+}\
+else\
+{\
+	fread(&type_unassignedID, sizeof(int), 1, fp);\
+	while (fread(&swap, sizeof(type_t), 1, fp) != 0)\
+	{\
+		type_srv_addSwap; \
+	}\
+	fclose(fp);\
+}
+
+#define type_pers_save(fp, type_head, type_unassignedID, type_node_t, type_t, fileName)\
+if (fp == NULL) \
+{\
+	printf("Failed to save %s\n", fileName);\
+}\
+else\
+{\
+	fwrite(&type_unassignedID, sizeof(int), 1, fp);\
+	\
+	if (List_IsEmpty(type_head))\
+	{\
+		;\
+	}\
+	else\
+	{\
+		swap = type_head->next;\
+		while (swap != type_head)\
+		{\
+			fwrite(&(swap->data), sizeof(type_t), 1, fp);\
+			swap = swap->next;\
+		}\
+	}\
+	fclose(fp);\
+}
