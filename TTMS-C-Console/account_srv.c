@@ -27,8 +27,22 @@ void account_srv_add(account_t inputAccount_t)
 	type_srv_add(account_t, inputAccount_t, account_node_t, account_head);
 }
 
-//按照ID查找，返回play_list_t.没找到则返回NULL
+//按照ID查找，返回account_list_t.没找到则返回NULL
 account_list_t account_srv_findByID(int inputID)
 {
 	type_srv_findByID(account_t, inputID, account_node_t, account_head);
+}
+
+//输入account_t以修改
+// 修改成功返回1,否则0
+int accout_srv_modifyByPlay_t(account_t inputAccount_t)
+{
+	type_srv_modifyByType_t(account_t, inputAccount_t, account_node_t, account_srv_findByID(inputAccount_t.ID));
+}
+
+//删除account，不解决删除account引起的其他问题
+// 删除成功返回1,否则0
+int account_srv_deleteByID(int inputID)
+{
+	type_srv_deleteByID(account_node_t, account_srv_findByID(inputID));
 }

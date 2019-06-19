@@ -27,7 +27,27 @@ return nameOfID - 1;
 	}\
 	return NULL;
 
-/*
-#define type_srv_modifyByType_t(type_t, inputType_t, type_node_t, inputID, type_srv_findByID)\
-type_node_t* thisOne = type_
-*/
+
+#define type_srv_modifyByType_t(type_t, inputType_t, type_node_t, functionToFindByID)\
+type_node_t* thisOne = functionToFindByID;\
+if (thisOne == NULL)\
+{\
+	return 0;\
+}\
+else\
+{\
+	thisOne->data = inputType_t;\
+	return 1;\
+}
+
+#define type_srv_deleteByID(type_node_t, functionToFindByID)\
+type_node_t* thisOne = functionToFindByID;\
+if (thisOne == NULL) \
+{\
+	return 0;\
+}\
+else\
+{\
+	List_DelNode(thisOne);\
+	return 1;\
+}

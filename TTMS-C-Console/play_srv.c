@@ -42,32 +42,14 @@ play_list_t play_srv_findByID(int inputID)
 // 删除成功返回1,否则0
 int play_srv_deleteByID(int inputID)
 {
-	play_list_t thisOne = play_srv_findByID(inputID);
-	if (thisOne == NULL)
-	{
-		return 0;
-	}
-	else
-	{
-		List_DelNode(thisOne);
-		return 1;
-	}
+	type_srv_deleteByID(play_node_t, play_srv_findByID(inputID));
 }
 
 //输入play_t以修改
 // 修改成功返回1,否则0
 int play_srv_modifyByPlay_t(play_t inputPlay_t)
 {
-	play_list_t thisOne = play_srv_findByID(inputPlay_t.ID);
-	if (thisOne == NULL)
-	{
-		return 0;
-	}
-	else
-	{
-		thisOne->data = inputPlay_t;
-		return 1;
-	}
+	type_srv_modifyByType_t(play_t, inputPlay_t, play_node_t, play_srv_findByID(inputPlay_t.ID));
 }
 
 void play_printAll()

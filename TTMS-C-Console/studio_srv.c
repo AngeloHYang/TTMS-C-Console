@@ -82,6 +82,7 @@ studio_list_t studio_srv_findByID(int inputID)
 // 删除成功返回1,否则0
 int studio_srv_deleteByID(int inputID)
 {
+	/*
 	studio_list_t thisOne = studio_srv_findByID(inputID);
 	if (thisOne == NULL)
 	{
@@ -91,13 +92,15 @@ int studio_srv_deleteByID(int inputID)
 	{
 		List_DelNode(thisOne);
 		return 1;
-	}
+	}*/
+	type_srv_deleteByID(studio_node_t, studio_srv_findByID(inputID));
 }
 
 //输入studio_t以修改
 // 修改成功返回1,否则0
 int studio_srv_modifyByStudio_t(studio_t inputStudio_t)
 {
+	/*
 	studio_list_t thisOne = studio_srv_findByID(inputStudio_t.ID);
 	if (thisOne == NULL)
 	{
@@ -107,5 +110,6 @@ int studio_srv_modifyByStudio_t(studio_t inputStudio_t)
 	{
 		thisOne->data = inputStudio_t;
 		return 1;
-	}
+	}*/
+	type_srv_modifyByType_t(studio_t, inputStudio_t, studio_node_t, studio_srv_findByID(inputStudio_t.ID));
 }

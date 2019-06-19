@@ -5,19 +5,6 @@
 #include "play_srv.h"
 #include "basicMove.h"
 
-#define doSomething(function)\
-(*funtion)();
-
-void printHello()
-{
-	printf("Hello\n");
-}
-
-void printBye()
-{
-	printf("Bye\n");
-}
-
 int test()
 {
 	system("cls");
@@ -26,8 +13,10 @@ int test()
 	extern void all_Load();
 	all_Load();
 	
-	doSomething(printHello);
-	doSomething(printBye);
+
+	studio_srv_modifyByStudio_t(studio_srv_generate(3, "1144", 14, 1));
+	studio_srv_printAll();
+
 	extern void all_Save();
 	all_Save();
 

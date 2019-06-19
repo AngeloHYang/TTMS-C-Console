@@ -36,3 +36,14 @@ extern int account_srv_getID();
 extern account_t account_srv_generate(int ID, account_type_t type, char username[30], char password[30]);
 
 extern void account_srv_add(account_t inputAccount_t);
+
+//按照ID查找，返回account_list_t.没找到则返回NULL
+extern account_list_t account_srv_findByID(int inputID);
+
+//输入account_t以修改
+// 修改成功返回1,否则0
+extern int accout_srv_modifyByPlay_t(account_t inputAccount_t);
+
+//删除account，不解决删除account引起的其他问题
+// 删除成功返回1,否则0
+extern int account_srv_deleteByID(int inputID);
