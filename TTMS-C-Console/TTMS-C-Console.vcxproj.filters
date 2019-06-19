@@ -69,6 +69,18 @@
     <ClCompile Include="account_pers.c">
       <Filter>源文件\Persistence</Filter>
     </ClCompile>
+    <ClCompile Include="schedule_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="ticket_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="ticket_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -100,6 +112,21 @@
     </ClInclude>
     <ClInclude Include="basicMove.h">
       <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="ticket_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="ticket_pers.h">
+      <Filter>头文件\Persistence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

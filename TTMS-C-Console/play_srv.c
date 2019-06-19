@@ -12,7 +12,7 @@ int play_srv_getID()
 }
 
 //用于生成一个play_t，注意返回值
-play_t play_srv_generate(int ID, char name[51], char type[21], char area[11], play_rating_t rating, int duration, ttms_date_t start_date, ttms_date_t end_date, int price)
+play_t play_srv_generate(int ID, char name[51], char type[21], char area[11], play_rating_t rating, int duration, user_date_t start_date, user_date_t end_date, int price)
 {
 	play_t thisOne;
 	thisOne.ID = ID;

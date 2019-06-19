@@ -4,6 +4,7 @@
 #include "studio_srv.h"
 #include "play_srv.h"
 #include "basicMove.h"
+#include "schedule_srv.h"
 
 int test()
 {
@@ -14,14 +15,12 @@ int test()
 	all_Load();
 	
 
-	/*studio_srv_modifyByStudio_t(studio_srv_generate(3, "1144", 14, 1));*/
-	studio_srv_printAll();
+	user_date_t d = { 1, 2, 3 };
+	user_time_t t = { 3, 2, 1 };
 
-	ttms_date_t a = { 1, 2, 3 };
+	schedule_srv_add(schedule_srv_generate(schedule_srv_getID(), play_srv_getID(), studio_srv_getID(), d, t));
 
-	play_srv_add(play_srv_generate(play_srv_getID(), "you", "23", "US", 3, 132, a, a, 32));
-
-	play_srv_printAll();
+	schedule_srv_printAll();
 
 	extern void all_Save();
 	all_Save();
