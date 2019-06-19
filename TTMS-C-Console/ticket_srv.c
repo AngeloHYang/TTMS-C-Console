@@ -1,71 +1,64 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"List.h"
-#include <ticket_srv.h>
-#include<studio_srv.h>
-static char* KeyName = "ticket";
-void Ticket_Srv_GenBatch() {//生成演出票
-	schedule_node_t*head = NULL, *temp = NULL;
-	head = (schedule_node_t*)malloc(sizeof(schedule_node_t));
-	List_Init(head, schedule_node_t);
-	ticket_node_t*h = NULL, *t = NULL;
-	h = (ticket_node_t*)malloc(sizeof(ticket_node_t));
-	int ticketNum;
-	scanf("%d", &head->date.id);
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "List.h"
+#include "ticket_srv.h"
+#include "basicMove.h"
 
-	while ('\n' != getchar());
-	if (Schedule_Perst_FetchByID(head, head->data.id) == 0) {
-		printf("\n\t\tThe schedule is not exist!\n");
-		return;
-	}
-	studio_t*ptr = NULL;
-	ptr = (studio_t*)malloc(sizeof(studio_t));
-	if (Studio_Perst_SelectByID((head->next)->data.studio_id, ptr) == 0) {
-		printf("\n\t\tNo this studio!\n");
-		return;
-	}
-	seat_node_t*s = NULL, *q = NULL;
-	List_Init(s, seat_node_t);
-	int i, seatNum = 0;
-	temp = head->next;
-	seatNum = Seat_Perst_CountStudioSeat(s, seatNum, temp->data.studio_id);
-	if (seatNum == 0) {
-		printf("\n\t\tNot set seat in studio!\n");
-		return;
-	}
-	while (1) {
-		printf("\n\t\tInput ticket number:");
-		scanf("%d", &ticketNum);
-		if (seatNum < ticketNum) {
-			printf("\n\t\tThere is %d seat in No.%d studio in schedule!\n", temp->data.studio_id, seatNum);
-		}
-		else {
-			break;
-		}
-	}
-	q = s->next;
-	int price;
-	printf("\n\t\t%d\n", (head->next)->data.play_id);
-	price = Play_Perst_FetchPriceByID((head->next)->data.play_id);
-	if (price == 0) {
-		return;
-	}
+// 生成新增Ticket的ID，返回并加1
+int ticket_srv_getID()
+{
+	newID(ticket_unassignedID);
+}
 
-	for (i = 0; i < ticketNum; i++) {
-		t = (ticket_node_t*)malloc(sizeof(ticket_node_t));
-		t->data.id = EntKey_Perst_GetNewKeys(KeyName);
-		t->data.schedule_id = temp->data.id;
-		t->data.seat_id = q->data.id;
-		t->data.price = price;
-		t->data.status = TICKET_AVL;
-		List_AddTail(h, t);
-		q = q->next;
+//用于生成一个ticket_t，注意返回值
+ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, ticket_status_t status)
+{
+	ticket_t thisOne;
+	thisOne.ID = ID;
+	thisOne.schedule_ID = schedule_ID;
+	thisOne.seat_ID = seat_ID;
+	thisOne.price = price;
+	thisOne.status = status;
+
+	return thisOne;
+}
+
+
+void ticket_srv_add(ticket_t inputTicket_t) //ticket的添加
+{
+	type_srv_add(ticket_t, inputTicket_t, ticket_node_t, ticket_head);
+}
+
+//按照ID查找，返回ticket_list_t.没找到则返回NULL
+ticket_list_t ticket_srv_findByID(int inputID)
+{
+	type_srv_findByID(ticket_t, inputID, ticket_node_t, ticket_head);
+}
+
+//删除ticket，不解决删除ticket引起的其他问题
+// 删除成功返回1,否则0
+int ticket_srv_deleteByID(int inputID)
+{
+	type_srv_deleteByID(ticket_node_t, ticket_srv_findByID(inputID));
+}
+
+//输入ticket_t以修改
+// 修改成功返回1,否则0
+int ticket_srv_modifyByPlay_t(ticket_t inputTicket_t)
+{
+	type_srv_modifyByType_t(ticket_t, inputTicket_t, ticket_node_t, ticket_srv_findByID(inputTicket_t.ID));
+}
+
+void ticket_srv_printAll()
+{
+	ticket_list_t swap = ticket_head->next;
+	int counter = 1;
+	while (swap != ticket_head)
+	{
+		printf("ID: %d\n", swap->data.ID);
+			printf("Price: %d\n", swap->data.price);
+		counter++;
+		swap = swap->next;
 	}
-	if (Ticket_Perst_Insert(h) == 0) {
-		printf("\n\t\tError!\n");
-		return;
-	}
-	printf("\n\t\tStorage ticket success! ");
-	printf("Press [Enter] to return......");
-	while ('\n' != getchar());
 }

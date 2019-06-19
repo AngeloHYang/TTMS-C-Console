@@ -26,6 +26,7 @@ void all_Load()
 	play_pers_load();
 	account_pers_load();
 	schedule_pers_load();
+	ticket_pers_load();
 }
 
 void all_Save()
@@ -34,4 +35,5 @@ void all_Save()
 	play_pers_save();
 	account_pers_save();
 	schedule_pers_save();
+	ticket_pers_save();
 }
