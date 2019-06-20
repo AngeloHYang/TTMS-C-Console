@@ -6,6 +6,8 @@
 #include "play_pers.h"
 #include "account_pers.h"
 #include "schedule_pers.h"
+#include "seat_pers.h"
+#include "ticket_pers.h"
 
 void all_Load()
 {
@@ -27,6 +29,7 @@ void all_Load()
 	account_pers_load();
 	schedule_pers_load();
 	ticket_pers_load();
+	seat_pers_load();
 }
 
 void all_Save()
@@ -36,4 +39,5 @@ void all_Save()
 	account_pers_save();
 	schedule_pers_save();
 	ticket_pers_save();
+	seat_pers_save();
 }

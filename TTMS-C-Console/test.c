@@ -6,10 +6,12 @@
 #include "basicMove.h"
 #include "schedule_srv.h"
 #include "ticket_srv.h"
+#include "seat_srv.h"
 
-int test()
+void test()
 {
 	system("cls");
+	
 	
 
 }
