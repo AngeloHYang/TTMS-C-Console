@@ -34,6 +34,9 @@
     <Filter Include="源文件\UI">
       <UniqueIdentifier>{86a4f494-3695-49d3-9c2c-505f72eefce4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\UI">
+      <UniqueIdentifier>{b796e3de-9da7-4927-8220-be4404799148}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common.c">
@@ -90,6 +93,24 @@
     <ClCompile Include="inputMethod.c">
       <Filter>源文件\Common</Filter>
     </ClCompile>
+    <ClCompile Include="printChoices.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="timeRelated.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="color.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="account_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="templates.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -145,6 +166,21 @@
     </ClInclude>
     <ClInclude Include="inputMethod.h">
       <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="printChoices.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="timeRelated.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="account_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="templates.h">
+      <Filter>头文件\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

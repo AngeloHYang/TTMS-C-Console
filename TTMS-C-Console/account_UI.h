@@ -1,0 +1,1 @@
+extern void account_UI_creatAdmin();

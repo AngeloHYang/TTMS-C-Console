@@ -9,19 +9,36 @@
 #include "ticket_srv.h"
 #include "seat_srv.h"
 #include "inputMethod.h"
+#include "common.h"
+#include "timeRelated.h"
+#include "printChoices.h"
+#include "color.h"
 
 void test()
 {
+	/*
+	setBackgroundColor(0);
 	system("cls");
-	char something[20];
-	//inputName(something, 20);
-	//printf("\nYour result: %d\n", inputInt());
-
-	/*printf("ASCII table:\n");
-	for (int whichNumber = -1; whichNumber <= 128; whichNumber++)
-	{
-		printf("Number: %d, iscntrl: %d, char: %c\n", whichNumber, iscntrl(whichNumber), whichNumber);
-	}*/
-	inputPassword(something, 20);
-	
+	system("pause");
+	setBackgroundColor(1);
+	system("cls");
+	system("pause");
+	setBackgroundColor(2);
+	system("cls");
+	system("pause");
+	setBackgroundColor(3);
+	system("cls");
+	system("pause");
+	setBackgroundColor(4);
+	system("cls");
+	system("pause");
+	setBackgroundColor(5);
+	system("cls");
+	system("pause");
+	setBackgroundColor(6);
+	system("cls");
+	system("pause");
+	setBackgroundColor(7);
+	system("cls");
+	system("pause");*/
 }

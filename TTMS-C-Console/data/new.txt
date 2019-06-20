@@ -1,0 +1,15 @@
+printf("   _==/          i     i          \==_\n");
+printf(" /XX/            |\___/|            \XX\\n");
+printf("   /XXXX\            |XXXXX|            /XXXX\\n");
+printf("  |XXXXXX\_         _XXXXXXX_         _/XXXXXX|\n");
+printf(" XXXXXXXXXXXxxxxxxxXXXXXXXXXXXxxxxxxxXXXXXXXXXXX\n");
+printf("|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|\n");
+printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+printf("|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|\n");
+printf(" XXXXXX/^^^^"\XXXXXXXXXXXXXXXXXXXXX/^^^^^\XXXXXX\n");
+printf("  |XXX|       \XXX/^^\XXXXX/^^\XXX/       |XXX|\n");
+printf("\XX\       \X/    \XXX/    \X/       /XX/\n");
+printf("   "\       "      \X/      "       /"\n");
+printf("   \n");
+printf("\n");
+printf("3\n");

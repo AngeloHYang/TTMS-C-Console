@@ -48,3 +48,9 @@ int account_srv_deleteByID(int inputID)
 {
 	type_srv_deleteByID(account_node_t, account_srv_findByID(inputID));
 }
+
+// 查询总共有多少用户
+int account_srv_howManyInToto()
+{
+	type_srv_howManyInToto(account_node_t, account_head);
+}

@@ -93,3 +93,13 @@ else\
 	}\
 	fclose(fp);\
 }
+
+#define type_srv_howManyInToto(type_node_t, type_head)\
+type_node_t* thisOne = type_head->next;\
+int counter = 0;\
+while (thisOne != type_head)\
+{\
+	counter++;\
+	thisOne = thisOne->next;\
+}\
+return counter;

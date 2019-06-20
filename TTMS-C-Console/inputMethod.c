@@ -1,5 +1,6 @@
 // 各种输入函数
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <conio.h>
@@ -17,9 +18,10 @@ void yes()
 	// 13 for enter
 }
 
-#define inputStringMacro(inputSpace, length, condition)\
+#define inputStringMacro(inputSpace, length, min, condition)\
 int counter = 0;\
-while ((aChar = _getch()) != 13)\
+int okToExit = 0;\
+while ((aChar = _getch()) != 13 || okToExit == 0)\
 {\
 	if (aChar >= 0 && aChar < 128)\
 	{\
@@ -39,23 +41,30 @@ while ((aChar = _getch()) != 13)\
 			counter++; \
 		}\
 	}\
+	if (counter >= min)\
+	{\
+		okToExit = 1;\
+	} else\
+	{\
+		okToExit = 0; \
+	}\
 }\
 inputSpace[counter] = '\0';
 
 
-void inputAlnum(char* inputSpace, int length)
+void inputAlnum(char* inputSpace, int length, int minValue)
 // Length includes '\0'
 {
 	char aChar;
-	inputStringMacro(inputSpace, length, isalnum(aChar));
+	inputStringMacro(inputSpace, length, minValue, isalnum(aChar));
 	//printf("\nyou just input: *%s*\n", inputSpace);
 }
 
-void inputName(char* inputSpace, int length)
+void inputName(char* inputSpace, int length, int minValue)
 // Length includes '\0'
 {
 	char aChar;
-	inputStringMacro(inputSpace, length, isalpha(aChar) || aChar == '-' || aChar == 32);
+	inputStringMacro(inputSpace, length, minValue, isalpha(aChar) || aChar == '-' || aChar == 32,);
 	//printf("\nyou just input: *%s*\n", inputSpace);
 }
 
@@ -67,19 +76,20 @@ int inputInt()
 	char* numberArray = (char*)malloc(sizeof(char) *(length + 1));
 	
 	char aChar;
-	inputStringMacro(numberArray, length - 1, isdigit(aChar));
+	inputStringMacro(numberArray, length - 1, 1, isdigit(aChar));
 
 	int result = atoi(numberArray);
 	free(numberArray);
 	return result;
 }
 
-void inputPassword(char* inputSpace, int length)
+void inputPassword(char* inputSpace, int length, int minValue)
 {
 	char aChar;
 	
 	int counter = 0; 
-	while ((aChar = _getch()) != 13)
+	int okToExit = 0;
+	while ((aChar = _getch()) != 13 || okToExit == 0)
 	{
 		if (aChar > 0 && aChar < 128)
 		{
@@ -99,9 +109,25 @@ void inputPassword(char* inputSpace, int length)
 				counter++; 
 			}
 		}
+		if (counter >= minValue)
+		{
+			okToExit = 1; 
+		}
+		else
+		{
+			okToExit = 0; 
+		}
 	}
 	inputSpace[counter] = '\0';
 
 
+	//printf("\nyou just input: *%s*\n", inputSpace);
+}
+
+void inputNumber(char* inputSpace, int length, int minValue)
+// Length includes '\0'
+{
+	char aChar;
+	inputStringMacro(inputSpace, length, minValue, isdigit(aChar));
 	//printf("\nyou just input: *%s*\n", inputSpace);
 }

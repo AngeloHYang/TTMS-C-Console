@@ -1,0 +1,1 @@
+extern int standardSelectMenuView(int currentBackGroundColor, int currentFontColor, char title[100], char** Menu, int menuItems);

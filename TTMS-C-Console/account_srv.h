@@ -49,3 +49,5 @@ extern int accout_srv_modifyByPlay_t(account_t inputAccount_t);
 // 删除成功返回1,否则0
 extern int account_srv_deleteByID(int inputID);
 
+// 查询总共有多少用户
+extern int account_srv_howManyInToto();

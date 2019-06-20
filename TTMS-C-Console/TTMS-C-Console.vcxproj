@@ -153,17 +153,23 @@
   <ItemGroup>
     <ClCompile Include="account_pers.c" />
     <ClCompile Include="account_srv.c" />
+    <ClCompile Include="account_UI.c" />
+    <ClCompile Include="color.c" />
     <ClCompile Include="common.c" />
     <ClCompile Include="inputMethod.c" />
     <ClCompile Include="listTestDrv.c" />
+    <ClCompile Include="login.c" />
     <ClCompile Include="play_pers.c" />
     <ClCompile Include="play_srv.c" />
+    <ClCompile Include="printChoices.c" />
     <ClCompile Include="schedule_pers.c" />
     <ClCompile Include="schedule_srv.c" />
     <ClCompile Include="seat_pers.c" />
     <ClCompile Include="seat_srv.c" />
+    <ClCompile Include="templates.c" />
     <ClCompile Include="ticket_pers.c" />
     <ClCompile Include="ticket_srv.c" />
+    <ClCompile Include="timeRelated.c" />
     <ClCompile Include="totalLoadANDSave.c" />
     <ClCompile Include="studio_pers.c" />
     <ClCompile Include="studio_srv.c" />
@@ -173,7 +179,9 @@
   <ItemGroup>
     <ClInclude Include="account_pers.h" />
     <ClInclude Include="account_srv.h" />
+    <ClInclude Include="account_UI.h" />
     <ClInclude Include="basicMove.h" />
+    <ClInclude Include="color.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="inputMethod.h" />
@@ -181,14 +189,17 @@
     <ClInclude Include="listTestDrv.h" />
     <ClInclude Include="play_pers.h" />
     <ClInclude Include="play_srv.h" />
+    <ClInclude Include="printChoices.h" />
     <ClInclude Include="schedule_pers.h" />
     <ClInclude Include="schedule_srv.h" />
     <ClInclude Include="seat_pers.h" />
     <ClInclude Include="seat_srv.h" />
     <ClInclude Include="studio_pers.h" />
     <ClInclude Include="studio_srv.h" />
+    <ClInclude Include="templates.h" />
     <ClInclude Include="ticket_pers.h" />
     <ClInclude Include="ticket_srv.h" />
+    <ClInclude Include="timeRelated.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
