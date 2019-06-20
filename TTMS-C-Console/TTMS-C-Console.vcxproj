@@ -154,6 +154,7 @@
     <ClCompile Include="account_pers.c" />
     <ClCompile Include="account_srv.c" />
     <ClCompile Include="common.c" />
+    <ClCompile Include="inputMethod.c" />
     <ClCompile Include="listTestDrv.c" />
     <ClCompile Include="play_pers.c" />
     <ClCompile Include="play_srv.c" />
@@ -175,6 +176,7 @@
     <ClInclude Include="basicMove.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="enums.h" />
+    <ClInclude Include="inputMethod.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="listTestDrv.h" />
     <ClInclude Include="play_pers.h" />

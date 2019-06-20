@@ -11,7 +11,8 @@ typedef struct {
 	account_type_t type;
 	char username[30];
 	char password[30];
-
+	char phone[20];
+	char nickname[30];
 } account_t;
 
 //account_t g1_Curuser = { 0,usr_anomy,"Anonymous","" };
@@ -47,3 +48,4 @@ extern int accout_srv_modifyByPlay_t(account_t inputAccount_t);
 //删除account，不解决删除account引起的其他问题
 // 删除成功返回1,否则0
 extern int account_srv_deleteByID(int inputID);
+

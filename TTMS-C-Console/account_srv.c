@@ -12,13 +12,15 @@ int account_srv_getID()
 }
 
 //用于生成一个account_t，注意返回值
-account_t account_srv_generate(int ID, account_type_t type, char username[30], char password[30])
+account_t account_srv_generate(int ID, account_type_t type, char username[30], char password[30], char phone[20], char nickname[30])
 {
 	account_t thisOne;
 	thisOne.ID = ID;
 	strcpy(thisOne.username, username);
 	strcpy(thisOne.password, password);
 	thisOne.type = type;
+	strcpy(thisOne.phone, phone);
+	strcpy(thisOne.nickname, phone);
 	return thisOne;
 }
 
