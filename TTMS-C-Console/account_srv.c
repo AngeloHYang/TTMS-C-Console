@@ -70,3 +70,42 @@ account_list_t account_srv_findByUsername(char input[30])
 
 	return NULL;
 }
+
+
+//在inputSpace中描述类型
+// Don't make it too small
+void account_srv_tellType(account_t inputAccount_t, char* inputSpace)
+{
+	if (inputAccount_t.type == USER_CLERK)
+	{
+		strcpy(inputSpace, "Clerk");
+	}
+	else if (inputAccount_t.type == USER_MANAGER)
+	{
+		strcpy(inputSpace, "Manager");
+	}
+	else if (inputAccount_t.type == USER_ADMIN)
+	{
+		strcpy(inputSpace, "Administrator");
+	}
+}
+
+// 不存在则为NULL
+account_list_t account_srv_findByWhichOne(int whichOne)
+{
+	/*
+	int counter = 1;
+	account_node_t* thisOne = account_head -> next;
+	while (thisOne != account_head)
+	{
+		if (counter == whichOne)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+		counter++;
+	}
+	return NULL;
+	*/
+	type_srv_findByWhichOne(account_node_t, account_head, whichOne);
+}

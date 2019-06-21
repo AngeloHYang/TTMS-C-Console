@@ -49,4 +49,6 @@ void test()
 	int* a = (int*)malloc(sizeof(int) * 99999);
 	printf("%d\n", sizeof(a));
 	system("pause");*/
+
+
 }

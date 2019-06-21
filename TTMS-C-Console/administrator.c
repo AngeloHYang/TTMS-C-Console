@@ -34,7 +34,7 @@ int administratorLogin(account_list_t theUser)
 		} 
 		else if (selection == 1)
 		{
-			
+			account_UI_manageAccounts(theUser);
 		}
 		else if (selection == 2)
 		{

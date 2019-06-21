@@ -5,6 +5,7 @@
 #include "inputMethod.h"
 #include "color.h"
 #include "account_UI.h"
+#include "templates.h"
 
 void noUserLogin();
 

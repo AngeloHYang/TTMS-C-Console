@@ -54,3 +54,10 @@ extern int account_srv_howManyInToto();
 
 // 根据username查找,失败返回NULL
 extern account_list_t account_srv_findByUsername(char input[30]);
+
+//在inputSpace中描述类型
+// Don't make it too small
+extern void account_srv_tellType(account_t inputAccount_t, char* inputSpace);
+
+// 不存在则为NULL
+extern account_list_t account_srv_findByWhichOne(int whichOne);

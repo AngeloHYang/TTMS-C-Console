@@ -103,3 +103,15 @@ while (thisOne != type_head)\
 	thisOne = thisOne->next;\
 }\
 return counter;
+
+#define type_srv_findByWhichOne(type_node_t, type_head, whichOne)\
+int counter = 1;\
+type_node_t* thisOne = type_head -> next;\
+while (thisOne != type_head)\
+{\
+	if (counter == whichOne)\
+		return thisOne;\
+	thisOne = thisOne->next;\
+	counter++;\
+}\
+return NULL;

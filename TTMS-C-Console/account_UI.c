@@ -5,6 +5,8 @@
 #include "color.h"
 #include "inputMethod.h"
 #include "account_srv.h"
+#include "templates.h"
+#include "List.h"
 
 void account_UI_changePassword(account_list_t theUser);
 
@@ -12,6 +14,9 @@ void account_UI_changePhoneNumber(account_list_t theUser);
 
 void account_UI_changeNickname(account_list_t theUser);
 
+void account_UI_viewAccounts();
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 int account_UI_creatAdmin()
 {
@@ -296,7 +301,47 @@ void account_UI_changeProfile(account_list_t theUser)
 
 void account_UI_manageAccounts(account_list_t theUser)
 {
+	int toReturn = 0;
+	int selection = 0;
+	char inputChar = '\0';
 
+	char* greet = (char*)malloc(sizeof(char) * 100);
+
+	char Menu[][100] = { "View Accounts", "Check by ID", "Check by Username", "Create an Account", "Return"};
+
+	char* pointers[] = { Menu[0], Menu[1], Menu[2], Menu[3], Menu[4] };
+
+	while (toReturn == 0)
+	{
+		memset(greet, '\0', sizeof(char) * 100);
+		strcat(greet, "Hello, ");
+		strcat(greet, theUser->data.nickname);
+		setBackgroundColor(7);
+		setFontColor(0);
+		system("cls");
+
+		selection = standardSelectMenuView(7, 0, "Account Management", "Add, modify, or delete an account", 34, pointers, 5, 100);
+
+		if (selection == 0)
+		{
+			account_UI_viewAccounts(10);
+		} else if (selection == 1)
+		{
+
+		}
+		else if (selection == 2)
+		{
+
+		} else if (selection == 3)
+		{
+
+		}
+		else if (selection == 4)
+		{
+			toReturn = 1;
+		}
+	}
+	free(greet);
 }
 
 // To change a basic element
@@ -442,4 +487,62 @@ void account_UI_changeNickname(account_list_t theUser)
 		printf("\n\n");
 		keyToContinue("Continue", 8);
 	}
+}
+
+void account_UI_viewAccounts(int howManyPerPage)
+{
+	// Page sum
+	int pageSum;
+	if (account_srv_howManyInToto() % howManyPerPage == 0)
+	{
+		pageSum = account_srv_howManyInToto() / howManyPerPage;
+	}
+	else
+	{
+		pageSum = account_srv_howManyInToto() / howManyPerPage + 1;
+	}
+
+	int currentPage = 1;
+	int currentOne = 1;
+	int selection = 1;
+
+	int toReturn = 0;
+	char pressedKey = '\0';
+	
+	/*
+	3			 95 			2
+	            username ID phone nickname
+		1   30   1 10 1 20 1 30 1
+	*/
+	while (toReturn == 0)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+		system("cls");
+
+		printTitleWithCurrentTime("View Accounts", 14);
+		printMultipleTimes('\n', 3);
+		printMultipleTimes(' ', 3);
+		printMultipleTimes('_', 95);
+		for (int whichOneToPrint = (currentPage - 1) * howManyPerPage + 1; whichOneToPrint <= min(account_srv_howManyInToto(), currentPage * howManyPerPage); whichOneToPrint++)
+		{
+			currentOne = whichOneToPrint % howManyPerPage;
+			if (currentOne == 0)
+			{
+				currentOne = howManyPerPage;
+			}
+
+			if (currentOne == selection)
+			{
+				setBackgroundColor(0);
+				setFontColor(7);
+
+
+
+				setBackgroundColor(7);
+				setFontColor(0);
+			}
+		}
+	}
+
 }
