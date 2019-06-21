@@ -54,3 +54,19 @@ int account_srv_howManyInToto()
 {
 	type_srv_howManyInToto(account_node_t, account_head);
 }
+
+account_list_t account_srv_findByUsername(char input[30])
+{
+	account_list_t thisOne = account_head ->next;
+
+	while (thisOne != account_head)
+	{
+		if (strcmp(thisOne->data.username, input) == 0)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+	}
+
+	return NULL;
+}

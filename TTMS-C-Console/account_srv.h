@@ -51,3 +51,6 @@ extern int account_srv_deleteByID(int inputID);
 
 // 查询总共有多少用户
 extern int account_srv_howManyInToto();
+
+// 根据username查找,失败返回NULL
+extern account_list_t account_srv_findByUsername(char input[30]);

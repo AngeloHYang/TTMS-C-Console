@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include "timeRelated.h"
+#include "inputMethod.h"
 
 void printMultipleTimes(char character, int times)
 {
@@ -155,11 +156,16 @@ void print_(int howMany)
 	}
 }
 
-void keyToContinue()
+void keyToContinue(char* inputString, int length)
 {
-	printMiddleAddjusted("Press any key to enter", 24);
+	char* final = (char*)malloc(sizeof(char) * (18 + length));
+	strcpy(final, "Press any key to ");
+	//char final[18 + length] = "Press any key to ";
+	strcat(final, inputString);
+	printMiddleAddjusted(final, 18 + length);
 	printf("\n");
 	printMiddleAddjusted("", 1);
+	free(final);
 	_getch();
 }
 
@@ -185,6 +191,24 @@ void printMiddleLeft(char* inputThings, int maxSize, int offset)
 	else
 	{
 		printf("Failed!\n");
+		return 0;
+	}
+}
+
+int areYouSure()
+// 1 for yes
+// 0 for no
+{
+	printMiddleAddjusted("Are you sure?(y/n): ", 23);
+	char userInput[100];
+	memset(userInput, '\0', sizeof(userInput));
+	inputAlnum(userInput, 100, 1);
+	if (userInput[0] == 'y' || userInput[0] == 'Y')
+	{
+		return 1;
+	}
+	else
+	{
 		return 0;
 	}
 }

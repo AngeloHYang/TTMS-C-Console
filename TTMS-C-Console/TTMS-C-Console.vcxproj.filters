@@ -102,13 +102,16 @@
     <ClCompile Include="color.c">
       <Filter>源文件\Common</Filter>
     </ClCompile>
-    <ClCompile Include="login.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="account_UI.c">
       <Filter>源文件\UI</Filter>
     </ClCompile>
     <ClCompile Include="templates.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="administrator.c">
       <Filter>源文件\UI</Filter>
     </ClCompile>
   </ItemGroup>

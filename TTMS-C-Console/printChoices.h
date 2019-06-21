@@ -19,6 +19,10 @@ extern void print_(int howMany);
 	_getch
 */
 
-extern void keyToContinue();
+extern void keyToContinue(char* inputString, int length);
 
 extern void printMiddleLeft(char* inputThings, int maxSize, int offset);
+
+extern int areYouSure();
+// 1 for yes
+// 0 for no

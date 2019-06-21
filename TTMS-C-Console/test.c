@@ -13,6 +13,7 @@
 #include "timeRelated.h"
 #include "printChoices.h"
 #include "color.h"
+#include "templates.h"
 
 void test()
 {
@@ -41,4 +42,8 @@ void test()
 	setBackgroundColor(7);
 	system("cls");
 	system("pause");*/
+	//exitSelect();
+	//exit(1);
+
+	
 }

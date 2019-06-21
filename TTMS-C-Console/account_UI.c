@@ -6,11 +6,10 @@
 #include "inputMethod.h"
 #include "account_srv.h"
 
-void account_UI_creatAdmin()
+int account_UI_creatAdmin()
 {
-	setBackgroundColor(6);
-	setFontColor(7);
-	setFontBackGroudColor(6);
+	setBackgroundColor(7);
+	setFontColor(0);
 
 	system("cls");
 
@@ -25,7 +24,7 @@ void account_UI_creatAdmin()
 	setFontColor(1);
 	printMiddleLeft("(6-29)(al+num)", 15, 2);
 	printf("\n");
-	setFontColor(7);
+	setFontColor(0);
 	printMiddleLeft("Username:", 10, 2);
 	printMultipleTimes(' ', 2);
 	inputAlnum(inputAccount.username, 30, 6);
@@ -38,7 +37,7 @@ void account_UI_creatAdmin()
 		setFontColor(1);
 		printMiddleLeft("(6-29)", 7, 2);
 		printf("\n");
-		setFontColor(7);
+		setFontColor(0);
 		printMiddleLeft("Password:", 10, 2);
 		printMultipleTimes(' ', 2);
 		char one[30], two[30];
@@ -61,12 +60,11 @@ void account_UI_creatAdmin()
 			printf("\n\n");
 			printMiddleAddjusted("Two passwords don't match!", 27);
 			printf("\n");
-			keyToContinue();
+			keyToContinue("Continue", 8);
 
 			// Reload page
-			setBackgroundColor(6);
-			setFontColor(7);
-			setFontBackGroudColor(6);
+			setBackgroundColor(7);
+			setFontColor(0);
 
 			system("cls");
 
@@ -79,7 +77,7 @@ void account_UI_creatAdmin()
 			setFontColor(1);
 			printMiddleLeft("(6-29)(al+num)", 15, 2);
 			printf("\n");
-			setFontColor(7);
+			setFontColor(0);
 			printMiddleLeft("Username:", 10, 2);
 			printMultipleTimes(' ', 2);
 			//inputAlnum(inputAccount.username, 30, 6);
@@ -96,12 +94,12 @@ void account_UI_creatAdmin()
 
 	// Nickname
 	setFontColor(1);
-	printMiddleLeft("Letters and \"-\", 6-29)", 23, 2);
-	setFontColor(7);
+	printMiddleLeft("Letters and \"-\", 1-29)", 23, 2);
+	setFontColor(0);
 	printf("\n");
 	printMiddleLeft("Nickname:", 10, 2);
 	printMultipleTimes(' ', 2);
-	inputName(inputAccount.nickname, 30, 6);
+	inputName(inputAccount.nickname, 30, 1);
 	printf("\n\n");
 
 	// Phone number
@@ -110,5 +108,26 @@ void account_UI_creatAdmin()
 	inputNumber(inputAccount.phone, 20, 0);
 	printf("\n\n");
 
+	if (areYouSure() == 1)
+	{
+		inputAccount.ID = account_srv_getID();
+		account_srv_add(inputAccount);
+		printf("\n\n");
+		printMiddleAddjusted("Added successfully!", 20);
+		printf("\n");
+		extern void all_Save();
+		void all_Save();
+		keyToContinue("Continue", 8);
+		return 1;
+	}
+	else
+	{
+		printf("\n\n");
+		printMiddleAddjusted("Failed to add!", 15);
+		printf("\n");
+		keyToContinue("Continue", 8);
+		return 0;
+	}
+	
 	system("pause");
 }

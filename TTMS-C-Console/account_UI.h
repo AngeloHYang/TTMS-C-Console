@@ -1,1 +1,1 @@
-extern void account_UI_creatAdmin();
+extern int account_UI_creatAdmin();

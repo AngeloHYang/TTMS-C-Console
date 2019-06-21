@@ -154,6 +154,7 @@
     <ClCompile Include="account_pers.c" />
     <ClCompile Include="account_srv.c" />
     <ClCompile Include="account_UI.c" />
+    <ClCompile Include="administrator.c" />
     <ClCompile Include="color.c" />
     <ClCompile Include="common.c" />
     <ClCompile Include="inputMethod.c" />

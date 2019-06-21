@@ -49,7 +49,7 @@ int main()
 	printMiddleAddjusted("Welcome to TTMS!", 17);
 	printMultipleTimes('\n', 5);
 
-	keyToContinue();
+	keyToContinue("Enter", 5);
 	
 	extern void login();
 	login();
