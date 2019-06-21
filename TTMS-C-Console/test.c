@@ -45,5 +45,8 @@ void test()
 	//exitSelect();
 	//exit(1);
 
-	
+	/*
+	int* a = (int*)malloc(sizeof(int) * 99999);
+	printf("%d\n", sizeof(a));
+	system("pause");*/
 }

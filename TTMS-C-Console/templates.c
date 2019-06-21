@@ -52,7 +52,7 @@ int standardSelectMenuView(int currentBackGroundColor, int currentFontColor, cha
 
 		anotherLine(6);
 		print_(100);
-		printf("\n\n ¡ñ Switch with \"W\", \"S\". Return with \"Q\". Select with \"Enter\".\n");
+		printf("\n\n ¡ñ Switch with \"W\", \"S\". Select with \"Enter\".\n");
 
 		pressedButton = _getch();
 		if (pressedButton == 's' || pressedButton == 'S')

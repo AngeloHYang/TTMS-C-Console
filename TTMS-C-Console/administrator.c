@@ -6,6 +6,7 @@
 #include "inputMethod.h"
 #include "account_srv.h"
 #include "templates.h"
+#include "account_UI.h"
 
 int administratorLogin(account_list_t theUser)
 {
@@ -26,11 +27,11 @@ int administratorLogin(account_list_t theUser)
 
 		if (selection == 0)
 		{
-
+			account_UI_changeProfile(theUser);
 		} 
 		else if (selection == 1)
 		{
-
+			
 		}
 		else if (selection == 2)
 		{
@@ -39,7 +40,7 @@ int administratorLogin(account_list_t theUser)
 		else if (selection == 3)
 		{
 			break;
-		} else if (selection = 4)
+		} else if (selection == 4)
 		{
 			toExit = exitSelect();
 		}
