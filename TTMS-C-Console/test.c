@@ -50,5 +50,8 @@ void test()
 	printf("%d\n", sizeof(a));
 	system("pause");*/
 
+	//printf("%10s", "a");
+	//printf("***");
+	//system("pause");
 
 }

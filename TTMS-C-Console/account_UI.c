@@ -14,7 +14,11 @@ void account_UI_changePhoneNumber(account_list_t theUser);
 
 void account_UI_changeNickname(account_list_t theUser);
 
-void account_UI_viewAccounts();
+void account_UI_viewAccounts(int howManyPerPage);
+
+void printUserListOneLine(int whichOne, int selected);
+
+void account_UI_modifyUser(int theOneToModify);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -253,6 +257,7 @@ void account_UI_changeProfile(account_list_t theUser)
 
 		if (inputChar == 's' || inputChar == 'S')
 		{
+
 			if (navigation < 3)
 			{
 				navigation++;
@@ -346,6 +351,7 @@ void account_UI_manageAccounts(account_list_t theUser)
 
 // To change a basic element
 
+	// personal profile
 void account_UI_changePassword(account_list_t theUser)
 {
 	int goBack = 0;
@@ -489,6 +495,7 @@ void account_UI_changeNickname(account_list_t theUser)
 	}
 }
 
+	// viewAccounts
 void account_UI_viewAccounts(int howManyPerPage)
 {
 	// Page sum
@@ -522,8 +529,29 @@ void account_UI_viewAccounts(int howManyPerPage)
 
 		printTitleWithCurrentTime("View Accounts", 14);
 		printMultipleTimes('\n', 3);
-		printMultipleTimes(' ', 3);
-		printMultipleTimes('_', 95);
+		//if (account_srv_howManyInToto() != 0)
+		//{
+			printMultipleTimes(' ', 3);
+			printMultipleTimes('-', 95);
+			printf("\n");
+		//}
+		// ±íÍ·
+			printMultipleTimes(' ', 3);
+			printf("|");
+			printf("%-30s", "Username");
+			printf("|");
+			printf("%-10s", "ID");
+			printf("|");
+			printf("%-20s", "Phone Number");
+			printf("|");
+			printf("%-30s", "Nickname");
+			printf("|");
+			printf("\n");
+			printMultipleTimes(' ', 3);
+			printMultipleTimes('-', 95);
+			printf("\n");
+
+		// ÄÚÈÝ
 		for (int whichOneToPrint = (currentPage - 1) * howManyPerPage + 1; whichOneToPrint <= min(account_srv_howManyInToto(), currentPage * howManyPerPage); whichOneToPrint++)
 		{
 			currentOne = whichOneToPrint % howManyPerPage;
@@ -534,15 +562,284 @@ void account_UI_viewAccounts(int howManyPerPage)
 
 			if (currentOne == selection)
 			{
-				setBackgroundColor(0);
-				setFontColor(7);
+				//setBackgroundColor(0);
+				//setFontColor(7);
 
+				printUserListOneLine(currentOne, 1);
 
+				//setBackgroundColor(7);
+				//setFontColor(0);
+			}
+			else
+			{
+				printUserListOneLine(currentOne, 0);
+			}
+		}
 
-				setBackgroundColor(7);
-				setFontColor(0);
+		// Return button
+		if ((account_srv_howManyInToto() % howManyPerPage) == 0)
+		{
+			//printf("Zero!\n");
+		}
+		else
+		{
+			printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyInToto() % howManyPerPage)) * 2);
+		}
+
+		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
+		if (selection == howManyPerPage + 1)
+		{
+			setBackgroundColor(0);
+			setFontColor(7);
+		}
+		printf("Return");
+		setBackgroundColor(7);
+		setFontColor(0);
+		printf("\n");
+		print_(100);
+		printf("\n ¡ñ Switch with \"W\", \"S\", \"A\", \"D\". Select with \"Enter\". ");
+		printf("Page: %d/%d", currentPage, pageSum);
+
+		// Receive
+		pressedKey = _getch();
+		if (pressedKey == 'w' || pressedKey == 'W')
+		{
+			if (selection == howManyPerPage + 1)
+			{
+				if ((account_srv_howManyInToto() % howManyPerPage) == 0)
+				{
+					selection--;
+				} else
+					selection = (account_srv_howManyInToto() % howManyPerPage);
+			}
+			if (selection > 1)
+			{
+				selection--;
+			}
+		}
+		else if (pressedKey == 'S' || pressedKey == 's')
+		{
+			if (currentPage < pageSum)
+			{
+				if (selection <= howManyPerPage)
+				{
+					selection++;
+				}
+			}
+			else 
+			{
+				if (selection == (account_srv_howManyInToto() % howManyPerPage) )
+				{
+					selection = howManyPerPage + 1;
+				}
+			}
+		}
+		else if (pressedKey == 'a' || pressedKey == 'A')
+		{
+			if (currentPage > 1)
+			{
+				currentPage--;
+			}
+		}
+		else if (pressedKey == 'd' || pressedKey == 'D')
+		{
+			if (currentPage < pageSum)
+			{
+				currentPage++;
+			}
+		}
+		else if (pressedKey == 13)
+		{
+			if (selection == howManyPerPage + 1)
+			{
+				toReturn = 1;
+			}
+			else
+			{
+				int theOneToModify = selection + (currentPage - 1) * howManyPerPage;
+				account_UI_modifyUser(theOneToModify);
 			}
 		}
 	}
 
+}
+
+void printUserListOneLine(int whichOne, int selected)
+{
+	account_node_t* thisOne = account_srv_findByWhichOne(whichOne);
+
+	printMultipleTimes(' ', 3);
+	if (selected == 1)
+	{
+		setBackgroundColor(0);
+		setFontColor(7);
+	}
+	printf("|");
+	printf("%-30s", thisOne->data.username);
+	printf("|");
+	printf("%-10d", thisOne->data.ID);
+	printf("|");
+	printf("%-20s", thisOne->data.phone);
+	printf("|");
+	printf("%-30s", thisOne->data.nickname);
+	printf("|");
+	if (selected == 1)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+	}
+	printf("\n");
+	printMultipleTimes(' ', 3);
+	printMultipleTimes('-', 95);
+	printf("\n");
+}
+
+	// changeUser
+void account_UI_modifyUser(int theOneToModify)
+{
+	account_node_t* theUser = account_srv_findByWhichOne(theOneToModify);
+	int toReturn = 0;
+	int navigation = 0;
+	char inputChar = '\0';
+
+	char type[20];
+
+	if (theUser->data.type == USER_CLERK)
+	{
+		strcpy(type, "Clerk");
+	}
+	else if (theUser->data.type == USER_MANAGER)
+	{
+		strcpy(type, "Manager");
+	}
+	else if (theUser->data.type == USER_ADMIN)
+	{
+		strcpy(type, "Administrator");
+	}
+
+	while (toReturn == 0)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+		system("cls");
+		char menu1[][30] = { "Password:", "Phone Number:", "Nickname:" };
+		char menu2[3][30] = { "******" };
+		strcpy(menu2[1], theUser->data.phone);
+		strcpy(menu2[2], theUser->data.nickname);
+
+		// Unchangeable
+		printTitleWithCurrentTime("Account Modify", 15);
+		printMultipleTimes('\n', 2);
+
+		
+		printf("\n");
+		
+		printMultipleTimes('\n', 3);
+
+		printMiddleLeft("ID:", 4, 2);
+		printMultipleTimes(' ', 2);
+		printf("%d\n", theUser->data.ID);
+
+		printMiddleLeft("Username:", 10, 2);
+		printMultipleTimes(' ', 2);
+		printf("%s\n", theUser->data.username);
+
+		printMiddleLeft("Type:", 6, 2);
+		printMultipleTimes(' ', 2);
+		printf("%s\n", type);
+		printMultipleTimes('\n', 3);
+
+		// Changeable
+		for (int whichOne = 0; whichOne <= 2; whichOne++)
+		{
+			if (navigation == whichOne)
+			{
+				printMultipleTimes(' ', (50 - strlen(menu1[whichOne]) - 2));
+
+				setFontColor(7);
+				setBackgroundColor(0);
+
+				printf("%s", menu1[whichOne]);
+
+				setFontColor(0);
+				setBackgroundColor(7);
+				printMultipleTimes(' ', 2);
+				printf("%s\n", menu2[whichOne]);
+			}
+			else
+			{
+				printMiddleLeft(menu1[whichOne], strlen(menu1[whichOne]) + 1, 2);
+				printMultipleTimes(' ', 2);
+				printf("%s\n", menu2[whichOne]);
+			}
+		}
+
+		printf("\n\n");
+		if (navigation == 3)
+		{
+			printMultipleTimes(' ', (100 - strlen("Return")) / 2);
+
+			setFontColor(7);
+			setBackgroundColor(0);
+
+			printf("%s", "Return");
+
+			setFontColor(0);
+			setBackgroundColor(7);
+		}
+		else
+		{
+			printMiddleAddjusted("Return", 7);
+		}
+
+		anotherLine(6);
+		print_(100);
+		printf("\n\n ¡ñ Switch with \"W\", \"S\". Select with \"Enter\".\n");
+		printMiddleAddjusted("", 1);
+		inputChar = _getch();
+
+		if (inputChar == 's' || inputChar == 'S')
+		{
+
+			if (navigation < 3)
+			{
+				navigation++;
+			}
+			else if (navigation == 3)
+			{
+				navigation = 0;
+			}
+		}
+		else if (inputChar == 'w' || inputChar == 'W')
+		{
+			if (navigation > 0)
+			{
+				navigation--;
+			}
+			else if (navigation == 0)
+			{
+				navigation = 3;
+			}
+		}
+		else if (inputChar == 13)
+		{
+
+			if (navigation == 0)
+			{
+				account_UI_changePassword(theUser);
+			}
+			else if (navigation == 1)
+			{
+				account_UI_changePhoneNumber(theUser);
+			}
+			else if (navigation == 2)
+			{
+				account_UI_changeNickname(theUser);
+			}
+			else if (navigation == 3)
+			{
+				break;
+			}
+		}
+	}
 }
