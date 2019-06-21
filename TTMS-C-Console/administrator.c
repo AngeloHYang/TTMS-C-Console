@@ -16,13 +16,16 @@ int administratorLogin(account_list_t theUser)
 	char Menu[5][100] = { "Personal Profile", "Manage Accounts", "Manage Studios", "Switch Account", "Quit"};
 	char* pointers[5] = { Menu[0], Menu[1], Menu[2], Menu[3], Menu[4] };
 
-	char words[100] = "Hello, ";
-	strcat(words, theUser->data.nickname);
+	char words[100];
+	
 
 	int selection = 0;
 	int toExit = 0;
 	while (toExit == 0)
 	{
+		memset(words, '\0', sizeof(words));
+		strcat(words, "Hello, ");
+		strcat(words, theUser->data.nickname);
 		selection = standardSelectMenuView(7, 0, "Administrator", words, 8 + strlen(theUser->data.nickname), pointers, 5, 100);
 
 		if (selection == 0)

@@ -10,6 +10,9 @@ void account_UI_changePassword(account_list_t theUser);
 
 void account_UI_changePhoneNumber(account_list_t theUser);
 
+void account_UI_changeNickname(account_list_t theUser);
+
+
 int account_UI_creatAdmin()
 {
 	setBackgroundColor(7);
@@ -143,9 +146,6 @@ void account_UI_changeProfile(account_list_t theUser)
 	char inputChar = '\0';
 
 	char* greet = (char*)malloc(sizeof(char) * 100);
-	memset(greet, '\0', sizeof(char) * 100);
-	strcat(greet, "Hello, ");
-	strcat(greet, theUser->data.nickname);
 
 	char type[20];
 
@@ -164,6 +164,9 @@ void account_UI_changeProfile(account_list_t theUser)
 
 	while (toReturn == 0)
 	{
+		memset(greet, '\0', sizeof(char) * 100);
+		strcat(greet, "Hello, ");
+		strcat(greet, theUser->data.nickname);
 		setBackgroundColor(7);
 		setFontColor(0);
 		system("cls");
@@ -278,7 +281,7 @@ void account_UI_changeProfile(account_list_t theUser)
 			}
 			else if (navigation == 2)
 			{
-
+				account_UI_changeNickname(theUser);
 			}
 			else if (navigation == 3)
 			{
@@ -290,6 +293,13 @@ void account_UI_changeProfile(account_list_t theUser)
 
 
 }
+
+void account_UI_manageAccounts(account_list_t theUser)
+{
+
+}
+
+// To change a basic element
 
 void account_UI_changePassword(account_list_t theUser)
 {
@@ -364,8 +374,8 @@ void account_UI_changePhoneNumber(account_list_t theUser)
 	printMiddleAddjusted(input, strlen(input) + 1);
 
 	printf("\n\n");
-	
-	
+
+
 	printMiddleLeft("Phone number:", 14, 2);
 	printf("  ");
 	inputNumber(inputPhone, 20, 0);
@@ -383,6 +393,52 @@ void account_UI_changePhoneNumber(account_list_t theUser)
 	{
 		printf("\n\n");
 		printMiddleAddjusted("Failed to change the phone number!", 35);
+		printf("\n\n");
+		keyToContinue("Continue", 8);
+	}
+}
+
+void account_UI_changeNickname(account_list_t theUser)
+{
+	int goBack = 0;
+	int match = 0;
+
+	match = 0;
+	char newName[30];
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+
+	printTitleWithCurrentTime("Changing Nickname", 18);
+	printMultipleTimes('\n', 2);
+	char input[100] = "Let's set up a new nickname for ";
+	strcat(input, theUser->data.username);
+
+	printMiddleAddjusted(input, strlen(input) + 1);
+
+	printf("\n\n");
+
+	setFontColor(1);
+	printMiddleLeft("Letters and \"-\", 1-29)", 23, 2);
+	setFontColor(0);
+	printf("\n");
+	printMiddleLeft("Nickname:", 10, 2);
+	printf("  ");
+	inputName(newName, 30, 1);
+	printf("\n\n");
+
+	if (areYouSure() == 1)
+	{
+		printf("\n\n");
+		strcpy(theUser->data.nickname, newName);
+		printMiddleAddjusted("Nickname updated!", 22);
+		printf("\n\n");
+		keyToContinue("Continue", 8);
+	}
+	else
+	{
+		printf("\n\n");
+		printMiddleAddjusted("Failed to change the nickname!", 31);
 		printf("\n\n");
 		keyToContinue("Continue", 8);
 	}
