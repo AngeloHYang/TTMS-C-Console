@@ -12,6 +12,7 @@ typedef struct {
 	user_date_t start_date;     //开始放映日期
 	user_date_t end_date;       //放映结束日期
 	int price;                  //票价
+	int exist;
 }play_t;
 
 typedef struct play_node {

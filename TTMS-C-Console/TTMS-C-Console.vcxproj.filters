@@ -120,6 +120,9 @@
     <ClCompile Include="seat_UI.c">
       <Filter>源文件\UI</Filter>
     </ClCompile>
+    <ClCompile Include="manager.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">

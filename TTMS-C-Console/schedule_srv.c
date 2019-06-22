@@ -21,6 +21,7 @@ schedule_t schedule_srv_generate(int ID, int play_ID, int studio_ID, user_date_t
 	thisOne.studio_ID = studio_ID;
 	thisOne.date = date;
 	thisOne.time = time;
+	thisOne.exist = 1;
 	return thisOne;
 }
 

@@ -160,6 +160,7 @@
     <ClCompile Include="inputMethod.c" />
     <ClCompile Include="listTestDrv.c" />
     <ClCompile Include="login.c" />
+    <ClCompile Include="manager.c" />
     <ClCompile Include="play_pers.c" />
     <ClCompile Include="play_srv.c" />
     <ClCompile Include="printChoices.c" />

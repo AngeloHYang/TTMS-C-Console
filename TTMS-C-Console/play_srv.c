@@ -24,6 +24,7 @@ play_t play_srv_generate(int ID, char name[51], char type[21], char area[11], pl
 	thisOne.start_date = start_date;
 	thisOne.end_date = end_date;
 	thisOne.price = price;
+	thisOne.exist = 1;
 	return thisOne;
 }
 

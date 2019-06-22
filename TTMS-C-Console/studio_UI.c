@@ -572,6 +572,8 @@ int studio_UI_deleteStudio(studio_list_t theStudioToModify)
 				if (theSeat != NULL)
 				{
 					ticket_srv_makeTicketERROR_byEndTimeAndSeat(theSeat->data.ID, currentSecond());
+					// Remove seat
+					seat_srv_deleteByID(theSeat->data.ID);
 				}
 			}
 		}

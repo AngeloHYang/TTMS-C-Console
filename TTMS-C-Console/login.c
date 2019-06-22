@@ -111,7 +111,8 @@ void uesrLogin()
 			}
 			else if (result->data.type == USER_MANAGER)
 			{
-				;
+				extern int managerLogin(account_list_t theUser);
+				toExit = managerLogin(result);
 			}
 			else if (result->data.type == USER_CLERK)
 			{

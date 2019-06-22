@@ -25,6 +25,8 @@ typedef struct {
 	// 开始时间
 	user_date_t date;
 	user_time_t time;
+
+	int exist;
 	
 }schedule_t;
 
