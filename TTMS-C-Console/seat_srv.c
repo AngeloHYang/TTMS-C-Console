@@ -16,6 +16,7 @@ seat_t seat_srv_generate(int ID, int roomID, int row, int column, seat_status_t 
 {
 	seat_t thisOne;
 	thisOne.ID = ID;
+	thisOne.roomID = roomID;
 	thisOne.row = row;
 	thisOne.column = column;
 	thisOne.status = status;
@@ -34,12 +35,15 @@ seat_list_t seat_srv_findByID(int inputID)
 	type_srv_findByID(seat_t, inputID, seat_node_t, seat_head);
 }
 
+
 //输入seat_t以修改
 // 修改成功返回1,否则0
 int seat_srv_modifyBySeat_t(seat_t inputSeat_t) 
 {
 	type_srv_modifyByType_t(seat_t, inputSeat_t, seat_node_t, seat_srv_findByID(inputSeat_t.ID));
 }
+
+
 
 //删除seat，不解决删除seat引起的其他问题
 // 删除成功返回1,否则0
@@ -107,3 +111,21 @@ void seat_srv_sortSeatList(seat_list_t list) {
 void seat_srv_addToSortedList(seat_list_t list, seat_node_t* node);
 //将一个座位节点加入已排序的座位链表中
 */
+
+
+
+// Return NULL if not found.
+seat_list_t seat_srv_findByRoomAndPlace(int roomID, int whichRow, int whichColumn)
+{
+	seat_list_t thisOne = seat_head->next;
+
+	while (thisOne != seat_head)
+	{
+		if (thisOne->data.roomID == roomID && thisOne->data.column == whichColumn && thisOne->data.row == whichRow)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+	}
+	return NULL;
+}

@@ -74,3 +74,6 @@ void seat_srv_sortSeatList(seat_list_t list);
 
 void seat_srv_addToSortedList(seat_list_t list, seat_node_t node);
 将一个座位节点加入已排序的座位链表中*/
+
+// Return NULL if not found.
+extern seat_list_t seat_srv_findByRoomAndPlace(int roomID, int whichRow, int whichColumn);

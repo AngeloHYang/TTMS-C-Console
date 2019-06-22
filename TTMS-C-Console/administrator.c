@@ -38,7 +38,7 @@ int administratorLogin(account_list_t theUser)
 		}
 		else if (selection == 2)
 		{
-
+			studio_UI_manageStudios(theUser);
 		} 
 		else if (selection == 3)
 		{

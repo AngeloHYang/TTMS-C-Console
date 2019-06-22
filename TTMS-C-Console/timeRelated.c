@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include "common.h"
 
 int currentSecond()
 {
@@ -161,4 +162,20 @@ void printTimeStringUpToMinute(int secondValue)
 	string[length - 7] = string[length - 8] = string[length - 6] = ' ';
 
 	printf("%s", string);
+}
+
+int user_date_t___And___user_time_t___ToSecond(user_date_t date, user_time_t time)
+{
+	struct tm a;
+	a.tm_isdst = -1;
+
+	a.tm_hour = time.hour;
+	a.tm_min = time.minute;
+	a.tm_sec = time.second;
+
+	a.tm_year = date.year - 1900;
+	a.tm_mon = date.month - 1;
+	a.tm_mday = date.day;
+
+	return (int)mktime(&a);
 }

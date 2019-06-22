@@ -167,6 +167,7 @@
     <ClCompile Include="schedule_srv.c" />
     <ClCompile Include="seat_pers.c" />
     <ClCompile Include="seat_srv.c" />
+    <ClCompile Include="studio_UI.c" />
     <ClCompile Include="templates.c" />
     <ClCompile Include="ticket_pers.c" />
     <ClCompile Include="ticket_srv.c" />
@@ -176,6 +177,7 @@
     <ClCompile Include="studio_srv.c" />
     <ClCompile Include="test.c" />
     <ClCompile Include="TTMS.c" />
+    <ClCompile Include="seat_UI.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="account_pers.h" />
@@ -195,8 +197,10 @@
     <ClInclude Include="schedule_srv.h" />
     <ClInclude Include="seat_pers.h" />
     <ClInclude Include="seat_srv.h" />
+    <ClInclude Include="seat_UI.h" />
     <ClInclude Include="studio_pers.h" />
     <ClInclude Include="studio_srv.h" />
+    <ClInclude Include="studio_UI.h" />
     <ClInclude Include="templates.h" />
     <ClInclude Include="ticket_pers.h" />
     <ClInclude Include="ticket_srv.h" />

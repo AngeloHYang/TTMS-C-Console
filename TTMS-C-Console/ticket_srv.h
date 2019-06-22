@@ -14,6 +14,7 @@ typedef struct {
 	int schedule_ID;
 	int seat_ID;
 	int price;
+	int soldBy; // -1 for unsold
 	ticket_status_t status;
 }ticket_t;
 
@@ -35,7 +36,7 @@ extern ticket_node_t* ticket_head;
 extern int ticket_srv_getID();
 
 //用于生成一个ticket_t，注意返回值
-extern ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, ticket_status_t status);
+extern ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, int soldBy, ticket_status_t status);
 
 extern void ticket_srv_add(ticket_t inputTicket_t); //ticket的添加
 
@@ -51,3 +52,5 @@ extern int ticket_srv_deleteByID(int inputID);
 extern int ticket_srv_modifyByPlay_t(ticket_t inputTicket_t);
 
 extern void ticket_srv_printAll();
+
+extern void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond);

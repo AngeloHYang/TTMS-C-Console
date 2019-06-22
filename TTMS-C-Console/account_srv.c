@@ -55,6 +55,7 @@ int account_srv_howManyInToto()
 	type_srv_howManyInToto(account_node_t, account_head);
 }
 
+// 根据username查找,失败返回NULL
 account_list_t account_srv_findByUsername(char input[30])
 {
 	account_list_t thisOne = account_head ->next;

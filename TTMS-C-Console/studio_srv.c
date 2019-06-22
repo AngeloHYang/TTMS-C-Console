@@ -113,3 +113,46 @@ int studio_srv_modifyByStudio_t(studio_t inputStudio_t)
 	}*/
 	type_srv_modifyByType_t(studio_t, inputStudio_t, studio_node_t, studio_srv_findByID(inputStudio_t.ID));
 }
+
+// 查询总共有多少studios
+int studio_srv_howManyInToto()
+{
+	type_srv_howManyInToto(studio_node_t, studio_head);
+}
+
+// 根据name查找,失败返回NULL
+studio_list_t studio_srv_findByUsername(char input[30])
+{
+	studio_list_t thisOne = studio_head->next;
+
+	while (thisOne != studio_head)
+	{
+		if (strcmp(thisOne->data.name, input) == 0)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+	}
+
+	return NULL;
+}
+
+// 不存在则为NULL
+studio_list_t studio_srv_findByWhichOne(int whichOne)
+{
+	/*
+	int counter = 1;
+	account_node_t* thisOne = account_head -> next;
+	while (thisOne != account_head)
+	{
+		if (counter == whichOne)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+		counter++;
+	}
+	return NULL;
+	*/
+	type_srv_findByWhichOne(studio_node_t, studio_head, whichOne);
+}

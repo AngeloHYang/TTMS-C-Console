@@ -42,3 +42,12 @@ extern int studio_srv_deleteByID(int inputID);
 //输入studio_t以修改
 // 修改成功返回1,否则0
 extern int studio_srv_modifyByStudio_t(studio_t inputStudio_t);
+
+// 查询总共有多少studios
+extern int studio_srv_howManyInToto();
+
+// 根据name查找,失败返回NULL
+extern studio_list_t studio_srv_findByUsername(char input[30]);
+
+// 不存在则为NULL
+extern studio_list_t studio_srv_findByWhichOne(int whichOne);

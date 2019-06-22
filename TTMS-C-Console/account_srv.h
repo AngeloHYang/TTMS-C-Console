@@ -34,7 +34,7 @@ extern account_node_t* account_head;
 extern int account_srv_getID();
 
 //用于生成一个account_t，注意返回值
-extern account_t account_srv_generate(int ID, account_type_t type, char username[30], char password[30]);
+extern account_t account_srv_generate(int ID, account_type_t type, char username[30], char password[30], char phone[20], char nickname[30]);
 
 extern void account_srv_add(account_t inputAccount_t);
 

@@ -4,6 +4,10 @@
 #include "List.h"
 #include "ticket_srv.h"
 #include "basicMove.h"
+#include "common.h"
+#include "schedule_srv.h"
+#include "timeRelated.h"
+#include "play_srv.h"
 
 // 生成新增Ticket的ID，返回并加1
 int ticket_srv_getID()
@@ -12,15 +16,15 @@ int ticket_srv_getID()
 }
 
 //用于生成一个ticket_t，注意返回值
-ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, ticket_status_t status)
+ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, int soldBy, ticket_status_t status)
 {
 	ticket_t thisOne;
 	thisOne.ID = ID;
 	thisOne.schedule_ID = schedule_ID;
 	thisOne.seat_ID = seat_ID;
 	thisOne.price = price;
+	thisOne.soldBy = soldBy;
 	thisOne.status = status;
-
 	return thisOne;
 }
 
@@ -60,5 +64,25 @@ void ticket_srv_printAll()
 			printf("Price: %d\n", swap->data.price);
 		counter++;
 		swap = swap->next;
+	}
+}
+
+void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond)
+{
+	ticket_list_t theTicket = ticket_head->next;
+	
+	while (theTicket != ticket_head)
+	{
+		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+		if (theTicket->data.seat_ID == seatID)
+		{
+			int startSecond = user_date_t___And___user_time_t___ToSecond(theSchedule->data.date, theSchedule->data.time);
+			play_list_t thePlay = play_srv_findByID(theSchedule->data.play_ID);
+			if (startSecond + thePlay->data.duration * 60 > currentSecond)
+			{
+				theTicket->data.status = TICKET_ERROR;
+			}
+		}
+		theTicket = theTicket->next;
 	}
 }

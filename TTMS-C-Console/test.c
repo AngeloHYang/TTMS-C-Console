@@ -14,6 +14,7 @@
 #include "printChoices.h"
 #include "color.h"
 #include "templates.h"
+#include <time.h>
 
 void test()
 {
@@ -54,4 +55,8 @@ void test()
 	//printf("***");
 	//system("pause");
 
+	user_date_t dt = { 1970, 1, 1};
+	user_time_t tm = { 7, 59, 59};
+	printf("%d", user_date_t___And___user_time_t___ToSecond(dt, tm));
+	system("pause");
 }

@@ -114,6 +114,12 @@
     <ClCompile Include="administrator.c">
       <Filter>源文件\UI</Filter>
     </ClCompile>
+    <ClCompile Include="studio_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="seat_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -183,6 +189,12 @@
       <Filter>头文件\UI</Filter>
     </ClInclude>
     <ClInclude Include="templates.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="studio_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="seat_UI.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
   </ItemGroup>

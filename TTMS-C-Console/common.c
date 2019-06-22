@@ -58,6 +58,49 @@ int DateCmp(user_date_t dt1, user_date_t dt2) {
 		return 1;
 }
 
+//比较时间tm1, tm2的大小。相等返回0，tm1<tm2返回-1，否则1
+int TimeCmp(user_time_t tm1, user_time_t tm2) {
+	if (tm1.hour < tm2.hour)
+		return -1;
+	else if (tm1.hour == tm2.hour && tm1.minute < tm2.minute)
+		return -1;
+	else if (tm1.hour == tm2.hour && tm1.minute == tm2.minute && tm1.second < tm2.second)
+		return -1;
+	else if (tm1.hour == tm2.hour && tm1.minute == tm2.minute
+		&& tm1.second == tm2.second)
+		return 0;
+	else
+		return 1;
+}
+
+//比较dt1 tm1, dt2 tm2的大小。相等返回0，dt1 tm1<dt2 tm2返回-1，否则1
+int DateAndTimeCmp(user_date_t dt1, user_time_t tm1, user_date_t dt2, user_time_t tm2)
+{
+	if (DateCmp(dt1, dt2) == -1)
+	{
+		return -1;
+	}
+	else if (DateCmp(dt1, dt2) == 0)
+	{
+		if (TimeCmp(tm1, tm2) == -1)
+		{
+			return -1;
+		}
+		else if (TimeCmp(tm1, tm2) == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
 //获取系统当前日期
 user_date_t DateNow() {
 	user_date_t curDate;
