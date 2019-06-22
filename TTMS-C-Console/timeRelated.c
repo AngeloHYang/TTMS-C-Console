@@ -164,7 +164,7 @@ void printTimeStringUpToMinute(int secondValue)
 	printf("%s", string);
 }
 
-int user_date_t___And___user_time_t___ToSecond(user_date_t date, user_time_t time)
+int user_date_t_And_user_time_t_ToSecond(user_date_t date, user_time_t time)
 {
 	struct tm a;
 	a.tm_isdst = -1;

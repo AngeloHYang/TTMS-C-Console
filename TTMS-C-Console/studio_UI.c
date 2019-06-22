@@ -9,6 +9,9 @@
 #include "templates.h"
 #include "List.h"
 #include "seat_UI.h"
+#include "ticket_srv.h"
+#include "seat_srv.h"
+#include "timeRelated.h"
 
 void studio_UI_manageStudios(account_list_t theUser);
 
@@ -19,6 +22,14 @@ void printStudioAdminListOneLine(int whichOne, int selected);
 void studio_UI_modifyStudio(theStudioToModify);
 
 void studio_UI_changeName(studio_list_t theStudioToModify);
+
+int studio_UI_deleteStudio(studio_list_t theStudioToModify);
+
+void studio_UI_checkByID();
+
+void studio_UI_checkByName();
+
+void studio_UI_createAStudio();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -51,15 +62,15 @@ void studio_UI_manageStudios(account_list_t theUser)
 		}
 		else if (selection == 1)
 		{
-			//account_UI_checkByID(theUser);
+			studio_UI_checkByID();
 		}
 		else if (selection == 2)
 		{
-			//account_UI_checkByUsername(theUser);
+			studio_UI_checkByName();
 		}
 		else if (selection == 3)
 		{
-			//account_UI_createAccount();
+			studio_UI_createAStudio();
 		}
 		else if (selection == 4)
 		{
@@ -148,14 +159,14 @@ void studio_UI_viewStudiosForAdmin(int howManyPerPage)
 				//setBackgroundColor(0);
 				//setFontColor(7);
 
-				printUserListOneLine(whichOneToPrint, 1);
+				printStudioAdminListOneLine(whichOneToPrint, 1);
 
 				//setBackgroundColor(7);
 				//setFontColor(0);
 			}
 			else
 			{
-				printUserListOneLine(whichOneToPrint, 0);
+				printStudioAdminListOneLine(whichOneToPrint, 0);
 			}
 		}
 
@@ -344,8 +355,6 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 
 		
 		printf("\n");
-		
-		printMultipleTimes('\n', 3);
 
 		printMiddleLeft("ID:", 4, 2);
 		printMultipleTimes(' ', 2);
@@ -356,18 +365,19 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		// Changeable
 		char place1[30], place2[30];
 		char menu1[][30] = {"Name:", "How Many Seats Per Row:", "How Many Seats Per Column:"};
-		char menu2[][30] = {theStudioToModify->data.name, theStudioToModify->data.colsCount, _itoa(theStudioToModify->data.rowsCount, place1, 10), _itoa(theStudioToModify->data.colsCount, place2, 10)};
 
 		// Print row and Column
 		printMiddleLeft(menu1[1], strlen(menu1[1]) + 1, 2);
 		printMultipleTimes(' ', 2);
-		printf("%s\n", menu2[1]);
+		printf("%d\n", theStudioToModify->data.rowsCount);
 		printMiddleLeft(menu1[2], strlen(menu1[2]) + 1, 2);
 		printMultipleTimes(' ', 2);
-		printf("%s\n", menu2[2]);
+		printf("%d\n", theStudioToModify->data.colsCount);
 
-		printf("\n\nSeat:\n");
-		seat_UI_printSeatNoMovie(10, theStudioToModify->data.ID);
+		printf("\n\n");
+		printMiddleAddjusted("Seats:", 7);
+		printf("\n");
+		seat_UI_printSeatNoMovie(50 - theStudioToModify->data.colsCount / 2, theStudioToModify->data.ID);
 		printf("\n\n\n");
 
 		// Print name
@@ -383,13 +393,13 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			setFontColor(0);
 			setBackgroundColor(7);
 			printMultipleTimes(' ', 2);
-			printf("%s\n", menu2[0]);
+			printf("%s\n\n", theStudioToModify->data.name);
 		}
 		else
 		{
 			printMiddleLeft(menu1[0], strlen(menu1[0]) + 1, 2);
 			printMultipleTimes(' ', 2);
-			printf("%s\n", menu2[0]);
+			printf("%s\n\n", theStudioToModify->data.name);
 		}
 
 		if (navigation == 1)
@@ -399,14 +409,14 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			setFontColor(7);
 			setBackgroundColor(0);
 
-			printf("%s", "Change Seat");
+			printf("%s\n", "Change Seat");
 
 			setFontColor(0);
 			setBackgroundColor(7);
 		} else
 		{
 			printMultipleTimes(' ', (100 - strlen("Change Seat")) / 2);
-			printf("%s", "Change Seat");
+			printf("%s\n", "Change Seat");
 		}
 
 		if (navigation == 2)
@@ -416,7 +426,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			setFontColor(7);
 			setBackgroundColor(0);
 
-			printf("%s", "Delete Studio");
+			printf("%s\n", "Delete Studio");
 
 			setFontColor(0);
 			setBackgroundColor(7);
@@ -424,7 +434,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		else
 		{
 			printMultipleTimes(' ', (100 - strlen("Delete Studio")) / 2);
-			printf("%s", "Delete Studio");
+			printf("%s\n", "Delete Studio");
 		}
 
 		printf("\n\n");
@@ -435,7 +445,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			setFontColor(7);
 			setBackgroundColor(0);
 
-			printf("%s", "Return");
+			printf("%s\n", "Return");
 
 			setFontColor(0);
 			setBackgroundColor(7);
@@ -443,9 +453,10 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		else
 		{
 			printMiddleAddjusted("Return", 7);
+			printf("\n");
 		}
 
-		anotherLine(6);
+		anotherLine(3);
 		print_(100);
 		printf("\n\n ¡ñ Switch with \"W\", \"S\". Select with \"Enter\".\n");
 		printMiddleAddjusted("", 1);
@@ -488,7 +499,10 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			else if (navigation == 2)
 			{
 				//Delete Studio
-				studio_UI_deleteStudio();
+				if (studio_UI_deleteStudio(theStudioToModify) == 1)
+				{
+					break;
+				}
 			}
 			else if (navigation == 3)
 			{
@@ -508,23 +522,233 @@ void studio_UI_changeName(studio_list_t theStudioToModify)
 	printf("\n\n");
 	printMiddleAddjusted("To change the name of the studio, please input", 47);
 
+	printf("\n\n");
 	printMiddleLeft("New Name:", 10, 2);
 	printMultipleTimes(' ', 2);
 
 	char newName[30];
 	inputAlnum(newName, 30, 1);
 	printf("\n\n");
+
+	if (studio_srv_findByUsername(newName) != NULL && studio_srv_findByUsername(newName) != theStudioToModify)
+	{
+		printMiddleAddjusted("The name has been used! Please choose another one!", 51);
+	}
+
 	if (areYouSure() == 1)
 	{
+		printf("\n\n");
 		strcpy(theStudioToModify->data.name, newName);
 		printMiddleAddjusted("Name updated!", 14);
 		printf("\n\n");
 		keyToContinue("Continue", 8);
 	} else
 	{
+		printf("\n\n");
 		printMiddleAddjusted("Name not changed!", 18);
 		printf("\n\n");
 		keyToContinue("Continue", 8);
 	}
 }
 
+int studio_UI_deleteStudio(studio_list_t theStudioToModify)
+{
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+	printTitleWithCurrentTime("Delete Studio", 12);
+	printf("\n\n");
+	printMiddleAddjusted("The studio will be deleted, relavant tickets will be forcedly returned.", 72);
+	printf("\n\n");
+	if (areYouSure() == 1)
+	{
+		printf("\n\n");
+		for (int whichRow = 1; whichRow <= theStudioToModify->data.rowsCount; whichRow++)
+		{
+			for (int whichColumn = 1; whichColumn <= theStudioToModify->data.colsCount; whichColumn++)
+			{
+				// Return every ticket afterwards
+				seat_node_t* theSeat = seat_srv_findByRoomAndPlace(theStudioToModify->data.ID, whichRow, whichColumn);
+				if (theSeat != NULL)
+				{
+					ticket_srv_makeTicketERROR_byEndTimeAndSeat(theSeat->data.ID, currentSecond());
+				}
+			}
+		}
+		studio_srv_deleteByID(theStudioToModify->data.ID);
+		printMiddleAddjusted("Studio deleted!", 16);
+		printf("\n\n");
+		keyToContinue("Continue", 8);
+		return 1;
+	}
+	else
+	{
+		printf("\n\n");
+		printMiddleAddjusted("Studio not deleted!", 20);
+		printf("\n\n");
+		keyToContinue("Continue", 8);
+		return 0;
+	}
+}
+
+void studio_UI_checkByID()
+{
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+	printTitleWithCurrentTime("Check by ID", 12);
+	printf("\n\n");
+	printMiddleAddjusted("Please input the ID of the studio that you are looking for", 59);
+	printf("\n\n");
+
+	printMiddleLeft("ID:", 4, 2);
+	printMultipleTimes(' ', 2);
+	int number = inputInt();
+
+	studio_list_t theStudio = studio_srv_findByID(number);
+	printMultipleTimes('\n', 2);
+	if (theStudio == NULL)
+	{
+		printMiddleAddjusted("The studio doesn't exist!", 26);
+		printf("\n\n");
+		keyToContinue("go back", 7);
+	}
+	else
+	{
+		studio_UI_modifyStudio(theStudio);
+	}
+}
+
+void studio_UI_checkByName()
+{
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+	printTitleWithCurrentTime("Check by Name", 14);
+	printf("\n\n");
+	printMiddleAddjusted("Please input the name of the studio that you are looking for", 61);
+	printf("\n\n");
+
+	printMiddleLeft("Name:", 6, 2);
+	printMultipleTimes(' ', 2);
+	char name[30];
+	inputAlnum(name, 30, 1);
+
+	studio_list_t theStudio = studio_srv_findByUsername(name);
+	printMultipleTimes('\n', 2);
+	if (theStudio == NULL)
+	{
+		printMiddleAddjusted("The studio doesn't exist!", 26);
+		printf("\n\n");
+		keyToContinue("go back", 7);
+	}
+	else
+	{
+		studio_UI_modifyStudio(theStudio);
+	}
+}
+
+void studio_UI_createAStudio()
+{
+	studio_t inputStudio;
+	int nameOK = 0;
+	int rowsCountOK = 0;
+	int colsCountOK = 0;
+
+	while (1)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+
+		system("cls");
+
+		printTitleWithCurrentTime("Create a studio", 19);
+		printMultipleTimes('\n', 2);
+		printMiddleAddjusted("Please fill in these information:", 34);
+		printMultipleTimes('\n', 3);
+
+		printMiddleLeft("Name:", 6, 2);
+		printMultipleTimes(' ', 2);
+		if (nameOK == 0)
+			inputAlnum(inputStudio.name, 30, 1);
+		else
+			printf("%s", inputStudio.name);
+		printf("\n");
+		studio_node_t* otherStudio = studio_srv_findByUsername(inputStudio.name);
+		if (otherStudio != NULL)
+		{
+			printMiddleAddjusted("Please choose another name!", 28);
+			printf("\n");
+			keyToContinue("Continue", 8);
+			continue;
+		}
+		else
+		{
+			nameOK = 1;
+		}
+		printf("\n");
+
+		printMiddleLeft("How many seats per Row:", 24, 2);
+		printMultipleTimes(' ', 2);
+		if (rowsCountOK == 0)
+			inputStudio.rowsCount = inputInt();
+		else
+			printf("%d", inputStudio.rowsCount);
+		printf("\n");
+		if (inputStudio.rowsCount <= 0 || inputStudio.rowsCount > 10)
+		{
+			printMiddleAddjusted("Number out of range!", 21);
+			printf("\n\n");
+			keyToContinue("Continue", 8);
+			continue;
+		}
+		else
+		{
+			rowsCountOK = 1;
+		}
+		
+
+		printMiddleLeft("How many seats per Column:", 27, 2);
+		printMultipleTimes(' ', 2);
+		if (colsCountOK == 0)
+			inputStudio.colsCount = inputInt();
+		else
+			printf("%d", inputStudio.colsCount);
+		printf("\n");
+		if (inputStudio.colsCount <= 0 || inputStudio.colsCount > 10)
+		{
+			printMiddleAddjusted("Number out of range!", 21);
+			printf("\n\n");
+			keyToContinue("Continue", 8);
+			continue;
+		}
+		else
+		{
+			colsCountOK = 1;
+		}
+		printf("\n\n\n");
+
+		if (areYouSure() == 1)
+		{
+			printf("\n");
+			inputStudio.ID = studio_srv_getID();
+			studio_srv_add(inputStudio);
+			
+			// Generate seats
+			seat_srv_generateSeatsForNewStudio(inputStudio.ID);
+
+			printMiddleAddjusted("Studio added!", 14);
+			printf("\n");
+			keyToContinue("Continue", 8);
+			break;
+		}
+		else
+		{
+			printf("\n"); 
+			printMiddleAddjusted("Studio not added!", 18);
+			printf("\n");
+			keyToContinue("Continue", 8);
+			break;
+		}
+	}
+}

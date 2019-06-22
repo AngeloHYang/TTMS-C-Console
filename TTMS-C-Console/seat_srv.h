@@ -77,3 +77,5 @@ void seat_srv_addToSortedList(seat_list_t list, seat_node_t node);
 
 // Return NULL if not found.
 extern seat_list_t seat_srv_findByRoomAndPlace(int roomID, int whichRow, int whichColumn);
+
+extern void seat_srv_generateSeatsForNewStudio(int studioID);

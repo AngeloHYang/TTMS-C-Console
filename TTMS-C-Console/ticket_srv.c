@@ -76,7 +76,7 @@ void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond)
 		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
 		if (theTicket->data.seat_ID == seatID)
 		{
-			int startSecond = user_date_t___And___user_time_t___ToSecond(theSchedule->data.date, theSchedule->data.time);
+			int startSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
 			play_list_t thePlay = play_srv_findByID(theSchedule->data.play_ID);
 			if (startSecond + thePlay->data.duration * 60 > currentSecond)
 			{

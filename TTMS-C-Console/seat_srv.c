@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "basicMove.h"
+#include "studio_srv.h"
 
 // 生成新增Seat的ID，返回并加1
 int seat_srv_getID()
@@ -128,4 +129,19 @@ seat_list_t seat_srv_findByRoomAndPlace(int roomID, int whichRow, int whichColum
 		thisOne = thisOne->next;
 	}
 	return NULL;
+}
+
+void seat_srv_generateSeatsForNewStudio(int studioID)
+{
+	studio_node_t* theStudio = studio_srv_findByID(studioID);
+	if (studioID != NULL)
+	{
+		for (int whichRow = 1; whichRow <= theStudio->data.rowsCount; whichRow++)
+		{
+			for (int whichColumn = 1; whichColumn <= theStudio->data.colsCount; whichColumn++)
+			{
+				seat_srv_add(seat_srv_generate(seat_srv_getID(), theStudio->data.ID, whichRow, whichColumn, SEAT_GOOD));
+			}
+		}
+	}
 }

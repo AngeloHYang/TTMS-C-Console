@@ -24,4 +24,4 @@ extern int timeStringLength(int secondValue);
 
 extern void printTimeStringUpToMinute(int secondValue);
 
-extern int user_date_t___And___user_time_t___ToSecond(user_date_t date, user_time_t time);
+//extern int user_date_t_And_user_time_t_ToSecond(user_date_t date, user_time_t time);

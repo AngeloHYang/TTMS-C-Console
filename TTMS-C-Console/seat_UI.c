@@ -19,7 +19,7 @@ int seat_UI_printSeatNoMovie(int howManySpace, int studioID)
 				theSeat = seat_srv_findByRoomAndPlace(studioID, whichRow, whichColumn);
 				if (theSeat->data.status == SEAT_NONE)
 				{
-					printf(" ");
+					printf("  ");
 				}
 				else if (theSeat->data.status == SEAT_GOOD)
 				{
@@ -55,12 +55,14 @@ void seat_UI_changeSeat(studio_list_t theStudioToModify)
 		printTitleWithCurrentTime("Change Seat", 12);
 		printf("\n\n");
 		printMiddleAddjusted("If a seat has been booked, it will be forcedly returned", 56);
-
-		printf("\n\n\nSeat:\n");
-		seat_UI_printSeatNoMovie(10, theStudioToModify->data.ID);
+		printf("\n");
+		printMiddleAddjusted("Seats:", 7);
+		printf("\n");
+		seat_UI_printSeatNoMovie(50 - theStudioToModify->data.colsCount / 2, theStudioToModify->data.ID);
 		printf("\n\n");
 
-		printf("The seat     ");
+
+		printf("     The seat     ");
 		int column;
 		int row;
 		printf("column: ");
@@ -74,12 +76,13 @@ void seat_UI_changeSeat(studio_list_t theStudioToModify)
 
 		if (theSeat == NULL)
 		{
-			printf("Invalid input\n\n");
+			printMiddleAddjusted("Invalid input", 14);
+			printf("\n\n\n");
 			keyToContinue("Continue", 8);
 			continue;
 		}
 
-		printf("Is this seat broken, good, or nonexistent?(b/g/n): ");
+		printMiddleAddjusted("Is this seat broken, good, or nonexistent?(b/g/n):      \b\b\b\b", 61);
 		char inputOperation[30];
 		inputAlnum(inputOperation, 30, 0);
 		if (inputOperation[0] == 'b' || inputOperation[0] == 'B')
@@ -96,32 +99,41 @@ void seat_UI_changeSeat(studio_list_t theStudioToModify)
 		}
 		else
 		{
-			printf("\nInvalid input\n");
-			printf("Failed to change the seat\n");
+			printf("\n");
+			printMiddleAddjusted("Invalid input", 14);
+			printf("\n\n\n");
+			printMiddleAddjusted("Failed to change the seat\n", 27);
+			printf("\n");
 			keyToContinue("Continue", 8);
 			break;
 		}
-		printf("\n\nPreview: \n");
-		seat_UI_printSeatNoMovie(10, theSeat->data.roomID);
+		printf("\n\n");
+		printMiddleAddjusted("Preview:", 9);
 		printf("\n");
+		seat_UI_printSeatNoMovie(50 - theStudioToModify->data.colsCount / 2, theSeat->data.roomID);
+		printf("\n\n");
 		if (areYouSure() == 1)
 		{
 			// Forcedly return tickets
 			if (old == SEAT_GOOD && (theSeat->data.status == SEAT_NONE) || (theSeat->data.status == SEAT_BROKEN))
 			{
-				printf("Returning tickets...");
+				printf("\n\n");
+				printMiddleAddjusted("Returning tickets...     \b\b\b\b\b", 31);
 				ticket_srv_makeTicketERROR_byEndTimeAndSeat(theSeat->data.ID, currentSecond());
 				printf("Done!\n");
 			}
-			printf("Status changed!\n");
-
+			printf("\n");
+			printMiddleAddjusted("Status changed!", 16);
+			printf("\n");
 			keyToContinue("Continue", 8);
 			break;
 		}
 		else
 		{
-			printf("Status not changed!\n");
+			printf("\n\n");
+			printMiddleAddjusted("Status not changed!", 20);
 			theSeat->data.status = old;
+			printf("\n");
 			keyToContinue("Continue", 8);
 			break;
 		}
