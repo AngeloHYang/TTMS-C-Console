@@ -52,7 +52,17 @@ void play_srv_add(play_t inputPlay_t) //影片的添加
 //按照ID查找，返回play_list_t.没找到则返回NULL
 play_list_t play_srv_findByID(int inputID)
 {
-	type_srv_findByID(play_t, inputID, play_node_t, play_head);
+	//type_srv_findByID(play_t, inputID, play_node_t, play_head);
+	play_node_t* thisOne = play_head->next; 
+	while (thisOne != play_head) 
+	{
+		if (thisOne->data.ID == inputID && thisOne->data.exist == 1)
+		{
+			return thisOne; 
+		}
+		thisOne = thisOne->next; 
+	}
+	return NULL;
 }
 
 //删除play，不解决删除play引起的其他问题
@@ -110,8 +120,12 @@ int play_srv_howManyInToto()
 // 不存在则为NULL
 play_list_t play_srv_findByWhichOne(int whichOne)
 {
-	int counter = 1; 
+	int counter = 0; 
 	play_node_t* thisOne = play_head->next; 
+	if (thisOne->data.exist == 1)
+	{
+		counter = 1;
+	}
 	while (thisOne != play_head)
 	{
 		if (counter == whichOne && thisOne->data.exist == 1)

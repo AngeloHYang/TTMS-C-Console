@@ -34,7 +34,17 @@ void schedule_srv_add(schedule_t inputSchedule_t) //schedule的添加
 //按照ID查找，返回schedule_list_t.没找到则返回NULL
 schedule_list_t schedule_srv_findByID(int inputID)
 {
-	type_srv_findByID(schedule_t, inputID, schedule_node_t, schedule_head);
+	//type_srv_findByID(schedule_t, inputID, schedule_node_t, schedule_head);
+	schedule_node_t* thisOne = schedule_head->next;
+	while (thisOne != schedule_head)
+	{
+		if (thisOne->data.ID == inputID && thisOne->data.exist == 1)
+		{
+			return thisOne; 
+		}
+		thisOne = thisOne->next; 
+	}
+	return NULL;
 }
 
 //删除schedule，不解决删除schedule引起的其他问题
@@ -135,5 +145,6 @@ void schedule_srv_deleteScheduleByPlayID(int playID)
 		{
 			theSchedule->data.exist = 0;
 		}
+		theSchedule = theSchedule->next;
 	}
 }

@@ -87,7 +87,7 @@ void play_UI_managePlays(account_list_t theUser)
 
 void play_UI_viewPlaysForManager(int howManyPerPage)
 {
-	//howManyPerPage = 3;
+	howManyPerPage = 3;
 
 	// Page sum
 	int pageSum;
@@ -289,7 +289,7 @@ void play_UI_viewPlaysForManager(int howManyPerPage)
 				int theOneToModify = selection + (currentPage - 1) * howManyPerPage;
 				play_node_t* thePlayToModify = play_srv_findByWhichOne(theOneToModify);
 
-				//play_UI_modifyPlay(thePlayToModify);
+				play_UI_modifyPlay(thePlayToModify);
 
 				// Update page sum
 				if (play_srv_howManyInToto() % howManyPerPage == 0)
@@ -340,7 +340,7 @@ void printPlayManagerListOneLine(int whichOne, int selected)
 		strcpy(ratings, "R");
 	} if (thisOne->data.rating == PLAY_RATE_NC_17)
 	{
-		strcpy(ratings, "NC 17");
+		strcpy(ratings, "NC-17");
 	} 
 
 
@@ -350,8 +350,6 @@ void printPlayManagerListOneLine(int whichOne, int selected)
 		setBackgroundColor(0);
 		setFontColor(7);
 	}
-
-	printMultipleTimes(' ', 6);
 	printf("|");
 	printf("%-30s", thisOne->data.name);
 	printf("|");
@@ -432,7 +430,7 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 		strcpy(menu2[1], thePlayToModify->data.type);
 		strcpy(menu2[2], thePlayToModify->data.area);
 		strcpy(menu2[3], ratings);
-		_itoa(menu2[4], thePlayToModify->data.duration, 10);
+		_itoa(thePlayToModify->data.duration, menu2[4], 10);
 			// start date
 		memset(menu2[5], '\0', sizeof(menu2[5]));
 		char swap[10];
@@ -462,7 +460,7 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 		{
 			if (navigation == whichOne)
 			{
-				printMultipleTimes(' ', (100 - strlen(menu1[whichOne])) / 2);
+				printMultipleTimes(' ', 50 - strlen(menu1[whichOne]));
 
 				setBackgroundColor(0);
 				setFontColor(7);
@@ -474,29 +472,37 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 				setBackgroundColor(7);
 				setFontColor(0);
 
-				printMultipleTimes(' ', 2);
+				printMultipleTimes(' ', 4);
 				printf("%s\n", menu2[whichOne]);
 			}
 			else
 			{
-				printMiddleLeft(menu1[whichOne], strlen(menu1[whichOne]), 2);
-				printMultipleTimes(' ', 2);
+				printMultipleTimes(' ', 50 - strlen(menu1[whichOne]));
+				printf("%s", menu1[whichOne]);
+				printMultipleTimes(' ', 4);
 				printf("%s\n", menu2[whichOne]);
 			}
 		}
 		if (navigation == 8)
 		{
-			printMultipleTimes(' ', (100 - strlen("Delete")) / 2);
+			printMultipleTimes(' ', 50 - strlen("Delete"));
 			setBackgroundColor(0);
 			setFontColor(7);
 			printf("Delete");
 			setBackgroundColor(7);
 			setFontColor(0);
 		}
+		else
+		{
+			printMultipleTimes(' ', 50 - strlen("Delete"));
+			
+			printf("Delete");
+			
+		}
 		printf("\n\n");
 		if (navigation == 9)
 		{
-			printMultipleTimes(' ', (100 - strlen("Return")) / 2);
+			printMultipleTimes(' ', 50 - strlen("Return"));
 			setBackgroundColor(0);
 			setFontColor(7);
 			printf("Return");
@@ -505,7 +511,7 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 		}
 		else
 		{
-			printMultipleTimes(' ', (100 - strlen("Return")) / 2);
+			printMultipleTimes(' ', 50 - strlen("Return"));
 			printf("Return");
 		}
 
@@ -602,7 +608,7 @@ void play_UI_changeName(play_list_t thePlayToModify)
 	printMultipleTimes(' ', 2);
 
 	char newName[31];
-	inputAlnum(newName, 31, 1);
+	inputName(newName, 31, 1);
 	printf("\n\n");
 
 	/*
@@ -643,7 +649,7 @@ void play_UI_changeType(play_list_t thePlayToModify)
 	printMultipleTimes(' ', 2);
 
 	char newType[21];
-	inputAlnum(newType, 21, 1);
+	inputName(newType, 21, 1);
 	printf("\n\n");
 
 	/*
@@ -684,7 +690,7 @@ void play_UI_changeArea(play_list_t thePlayToModify)
 	printMultipleTimes(' ', 2);
 
 	char newArea[11];
-	inputAlnum(newArea, 11, 1);
+	inputName(newArea, 11, 1);
 	printf("\n\n");
 
 	/*
@@ -714,7 +720,7 @@ void play_UI_changeRating(play_list_t thePlayToModify)
 {
 	
 	int navigation = 0;
-	char menu[][6] = { "G", "PG", "PG-13", "R", "NC 17"};
+	char menu[][6] = { "G", "PG", "PG-13", "R", "NC-17"};
 	char inputChar = '\0';
 	while (1)
 	{
@@ -776,6 +782,10 @@ void play_UI_changeRating(play_list_t thePlayToModify)
 		else if (inputChar == 13)
 		{
 			break;
+		}
+		else
+		{
+			continue;
 		}
 	}
 	printf("\n\n");
@@ -863,30 +873,31 @@ void play_UI_changeStartAndEndDate(play_list_t thePlayToModify)
 	printf("Start Date:");
 	printMultipleTimes(' ', 6);
 	printf("Year: ");
-	inputNumber(inputSpace, 4, 1);
+	inputNumber(inputSpace, 5, 1);
 	inputStart.year = atoi(inputSpace);
 	printMultipleTimes(' ', 1);
 	printf("Month: ");
-	inputNumber(inputSpace, 2, 1);
+	inputNumber(inputSpace, 3, 1);
 	inputStart.month = atoi(inputSpace);
 	printMultipleTimes(' ', 1);
 	printf("Day: ");
-	inputNumber(inputSpace, 2, 1);
+	inputNumber(inputSpace, 3, 1);
 	inputStart.day = atoi(inputSpace);
+	printf("\n");
 
 	printMultipleTimes(' ', 24);
 	printf("  End Date:");
 	printMultipleTimes(' ', 6);
 	printf("Year: ");
-	inputNumber(inputSpace, 4, 1);
+	inputNumber(inputSpace, 5, 1);
 	inputEnd.year = atoi(inputSpace);
 	printMultipleTimes(' ', 1);
 	printf("Month: ");
-	inputNumber(inputSpace, 2, 1);
+	inputNumber(inputSpace, 3, 1);
 	inputEnd.month = atoi(inputSpace);
 	printMultipleTimes(' ', 1);
 	printf("Day: ");
-	inputNumber(inputSpace, 2, 1);
+	inputNumber(inputSpace, 3, 1);
 	inputEnd.day = atoi(inputSpace);
 
 	printf("\n\n\n");
@@ -902,21 +913,29 @@ void play_UI_changeStartAndEndDate(play_list_t thePlayToModify)
 		schedule_srv_makeScheduleInvalidAfterDate(inputEnd, thePlayToModify->data.ID);
 		schedule_srv_makeScheduleInvalidBeforeDate(inputStart, thePlayToModify->data.ID);
 
+		thePlayToModify->data.start_date = inputStart;
+		thePlayToModify->data.end_date = inputEnd;
+
 		printMiddleAddjusted("Start time and end time changed!", 33);
+		printf("\n");
 		keyToContinue("Continue", 8);
 	}
 	else
 	{
+		printf("\n\n");
 		if (validDate(inputStart) == 0 || validDate(inputEnd) == 0)
 		{
 			printMiddleAddjusted("Invalid date!", 14);
+			printf("\n");
 		}
 		else if (DateCmp(inputStart, inputEnd) <= 0)
 		{
 			printMiddleAddjusted("Invalid start time or end time!", 32);
+			printf("\n");
 		}
 		
 		printMiddleAddjusted("Start time and end time not changed!", 37);
+		printf("\n");
 		keyToContinue("Continue", 8);
 	}
 }
@@ -984,6 +1003,8 @@ int play_UI_deletePlay(play_list_t thePlayToModify)
 
 		// Delete schedules
 		schedule_srv_deleteScheduleByPlayID(thePlayToModify->data.ID);
+
+		thePlayToModify->data.exist = 0;
 
 		printMiddleAddjusted("Play deleted!", 14);
 		printf("\n\n");
@@ -1059,7 +1080,7 @@ void play_UI_AddAPlay()
 		printMiddleLeft("Name:", 6, 2);
 		printMultipleTimes(' ', 2);
 		if (nameOK == 0)
-			inputAlnum(inputPlay.name, 31, 1);
+			inputName(inputPlay.name, 31, 1);
 		else
 			printf("%s", inputPlay.name);
 		printf("\n");
@@ -1070,7 +1091,7 @@ void play_UI_AddAPlay()
 		printMiddleLeft("Type:", 6, 2);
 		printMultipleTimes(' ', 2);
 		if (typeOK == 0)
-			inputAlnum(inputPlay.type, 21, 1);
+			inputName(inputPlay.type, 21, 1);
 		else
 			printf("%s", inputPlay.type);
 		printf("\n");
@@ -1081,7 +1102,7 @@ void play_UI_AddAPlay()
 		printMiddleLeft("Area:", 6, 2);
 		printMultipleTimes(' ', 2);
 		if (areaOK == 0)
-			inputAlnum(inputPlay.area, 11, 1);
+			inputName(inputPlay.area, 11, 1);
 		else
 			printf("%s", inputPlay.area);
 		printf("\n");
@@ -1089,9 +1110,9 @@ void play_UI_AddAPlay()
 		printf("\n");
 
 		// Rating
-		printMiddleLeft("Rating:", 6, 2);
+		printMiddleLeft("Rating:", 8, 2);
 		printMultipleTimes(' ', 2);
-		char menu[][6] = { "G", "PG", "PG-13", "R", "NC 17" };
+		char menu[][6] = { "G", "PG", "PG-13", "R", "NC-17" };
 		if (ratingOK == 0)
 		{
 			//inputAlnum(inputPlay.ratin, 31, 1);
@@ -1125,6 +1146,7 @@ void play_UI_AddAPlay()
 				{
 					navigation = 4;
 				}
+				continue;
 			}
 			else if (inputChar == 'd' || inputChar == 'D')
 			{
@@ -1136,11 +1158,16 @@ void play_UI_AddAPlay()
 				{
 					navigation = 0;
 				}
+				continue;
 			}
 			else if (inputChar == 13)
 			{
 				ratingOK = 1;
 				inputPlay.rating = navigation + 1;
+			}
+			else
+			{
+				continue;
 			}
 		}
 		else
@@ -1182,30 +1209,31 @@ void play_UI_AddAPlay()
 			printf("Start Date:");
 			printMultipleTimes(' ', 6);
 			printf("Year: ");
-			inputNumber(inputSpace, 4, 1);
+			inputNumber(inputSpace, 5, 1);
 			inputStart.year = atoi(inputSpace);
 			printMultipleTimes(' ', 1);
 			printf("Month: ");
-			inputNumber(inputSpace, 2, 1);
+			inputNumber(inputSpace, 3, 1);
 			inputStart.month = atoi(inputSpace);
 			printMultipleTimes(' ', 1);
 			printf("Day: ");
-			inputNumber(inputSpace, 2, 1);
+			inputNumber(inputSpace, 3, 1);
 			inputStart.day = atoi(inputSpace);
+			printf("\n");
 
 			printMultipleTimes(' ', 24);
 			printf("  End Date:");
 			printMultipleTimes(' ', 6);
 			printf("Year: ");
-			inputNumber(inputSpace, 4, 1);
+			inputNumber(inputSpace, 5, 1);
 			inputEnd.year = atoi(inputSpace);
 			printMultipleTimes(' ', 1);
 			printf("Month: ");
-			inputNumber(inputSpace, 2, 1);
+			inputNumber(inputSpace, 3, 1);
 			inputEnd.month = atoi(inputSpace);
 			printMultipleTimes(' ', 1);
 			printf("Day: ");
-			inputNumber(inputSpace, 2, 1);
+			inputNumber(inputSpace, 3, 1);
 			inputEnd.day = atoi(inputSpace);
 
 			printf("\n\n");
@@ -1237,6 +1265,7 @@ void play_UI_AddAPlay()
 			printMultipleTimes(' ', 1);
 			printf("Day: ");
 			printf("%d", inputPlay.start_date.day);
+			printf("\n");
 
 			printMultipleTimes(' ', 24);
 			printf("  End Date:");

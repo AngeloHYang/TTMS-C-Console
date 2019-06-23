@@ -64,7 +64,7 @@ void inputName(char* inputSpace, int length, int minValue)
 // Length includes '\0'
 {
 	char aChar;
-	inputStringMacro(inputSpace, length, minValue, isalpha(aChar) || aChar == '-' || aChar == 32,);
+	inputStringMacro(inputSpace, length, minValue, isalpha(aChar) || aChar == '-' || aChar == 32 || isdigit(aChar) != 0);
 	//printf("\nyou just input: *%s*\n", inputSpace);
 }
 

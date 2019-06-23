@@ -37,7 +37,17 @@ void ticket_srv_add(ticket_t inputTicket_t) //ticket的添加
 //按照ID查找，返回ticket_list_t.没找到则返回NULL
 ticket_list_t ticket_srv_findByID(int inputID)
 {
-	type_srv_findByID(ticket_t, inputID, ticket_node_t, ticket_head);
+	//type_srv_findByID(ticket_t, inputID, ticket_node_t, ticket_head);
+	ticket_node_t* thisOne = ticket_head->next;
+	while (thisOne != ticket_head)
+	{
+		if (thisOne->data.ID == inputID && thisOne->data.status != TICKET_ERROR)
+		{
+			return thisOne; 
+		}
+		thisOne = thisOne->next; 
+	}
+	return NULL;
 }
 
 //删除ticket，不解决删除ticket引起的其他问题
@@ -74,7 +84,7 @@ void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond)
 	while (theTicket != ticket_head)
 	{
 		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
-		if (theTicket->data.seat_ID == seatID)
+		if (theSchedule != NULL && theTicket->data.seat_ID == seatID)
 		{
 			int startSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
 			play_list_t thePlay = play_srv_findByID(theSchedule->data.play_ID);
@@ -93,7 +103,7 @@ void ticket_srv_makeTicketInvalidAfterDate(user_date_t byDateAfter, int playID)
 	while (theTicket != ticket_head)
 	{
 		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
-		if (theSchedule->data.play_ID == playID)
+		if (theSchedule != NULL && theSchedule->data.play_ID == playID)
 		{
 			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
 
@@ -114,7 +124,7 @@ void ticket_srv_makeTicketInvalidBeforeDate(user_date_t byDateBefore, int playID
 	while (theTicket != ticket_head)
 	{
 		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
-		if (theSchedule->data.play_ID == playID)
+		if (theSchedule != NULL && theSchedule->data.play_ID == playID)
 		{
 			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
 
@@ -132,10 +142,10 @@ void ticket_srv_makeTicketInvalidBeforeDate(user_date_t byDateBefore, int playID
 void ticket_srv_deleteTicketByPlayID(int playID)
 {
 	ticket_list_t theTicket = ticket_head->next;
-	while (theTicket != NULL)
+	while (theTicket != ticket_head)
 	{
 		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
-		if (theSchedule->data.play_ID == playID)
+		if (theSchedule != NULL && theSchedule->data.play_ID == playID)
 		{
 			theTicket->data.status = TICKET_ERROR;
 		}
