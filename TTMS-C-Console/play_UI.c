@@ -87,7 +87,7 @@ void play_UI_managePlays(account_list_t theUser)
 
 void play_UI_viewPlaysForManager(int howManyPerPage)
 {
-	howManyPerPage = 3;
+	//howManyPerPage = 3;
 
 	// Page sum
 	int pageSum;

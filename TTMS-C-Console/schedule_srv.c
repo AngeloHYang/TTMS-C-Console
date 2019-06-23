@@ -28,7 +28,23 @@ schedule_t schedule_srv_generate(int ID, int play_ID, int studio_ID, user_date_t
 
 void schedule_srv_add(schedule_t inputSchedule_t) //schedule的添加
 {
-	type_srv_add(schedule_t, inputSchedule_t, schedule_node_t, schedule_head);
+	//type_srv_add(schedule_t, inputSchedule_t, schedule_node_t, schedule_head);
+	schedule_node_t* thisOne = (schedule_node_t*)malloc(sizeof(schedule_node_t));
+	thisOne->data = inputSchedule_t;
+
+	schedule_node_t* operate = schedule_head->next;
+
+	while (operate != schedule_head)
+	{
+		if (DateAndTimeCmp(operate->data.date, operate->data.time, thisOne->data.date, thisOne->data.time) == -1 || DateAndTimeCmp(operate->data.date, operate->data.time, thisOne->data.date, thisOne->data.time) == 0)
+		{
+			List_InsertBefore(operate, thisOne);
+			return;
+		}
+		operate = operate->next;
+	}
+
+	List_AddTail(schedule_head, thisOne);
 }
 
 //按照ID查找，返回schedule_list_t.没找到则返回NULL
@@ -147,4 +163,41 @@ void schedule_srv_deleteScheduleByPlayID(int playID)
 		}
 		theSchedule = theSchedule->next;
 	}
+}
+
+int schedule_srv_howManyInToto()
+{
+	schedule_node_t* thisOne = schedule_head->next;
+	int counter = 0;
+	while (thisOne != schedule_head)
+	{
+		if (thisOne->data.exist == 1)
+		{
+			counter++;
+		}
+		thisOne = thisOne->next;
+	}
+	return counter;
+}
+
+// 不存在则为NULL
+schedule_node_t* schedule_srv_findByWhichOne(int whichOne)
+{
+	int counter = 0;
+	schedule_node_t* thisOne = schedule_head->next;
+	if (thisOne->data.exist == 1)
+	{
+		counter = 1;
+	}
+	while (thisOne != schedule_head)
+	{
+		if (counter == whichOne && thisOne->data.exist == 1)
+			return thisOne;
+		thisOne = thisOne->next;
+		if (thisOne->data.exist == 1)
+		{
+			counter++;
+		}
+	}
+	return NULL;
 }

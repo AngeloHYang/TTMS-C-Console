@@ -71,3 +71,8 @@ extern void schedule_srv_makeScheduleInvalidAfterDate(user_date_t byDateAfter, i
 extern void schedule_srv_makeScheduleInvalidBeforeDate(user_date_t byDateBefore, int playID);
 
 extern void schedule_srv_deleteScheduleByPlayID(int playID);
+
+extern int schedule_srv_howManyInToto();
+
+// 不存在则为NULL
+extern schedule_node_t* schedule_srv_findByWhichOne(int whichOne);

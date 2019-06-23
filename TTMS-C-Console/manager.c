@@ -8,6 +8,7 @@
 #include "templates.h"
 #include "account_UI.h"
 #include "play_UI.h"
+#include "schedule_UI.h"
 
 int managerLogin(account_list_t theUser)
 {
@@ -40,7 +41,7 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 2)
 		{
-			//studio_UI_manageStudios(theUser);
+			play_UI_manageSchedules(theUser);
 		}
 		else if (selection == 3)
 		{
