@@ -41,7 +41,7 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 2)
 		{
-			play_UI_manageSchedules(theUser);
+			schedule_UI_manageSchedules(theUser);
 		}
 		else if (selection == 3)
 		{

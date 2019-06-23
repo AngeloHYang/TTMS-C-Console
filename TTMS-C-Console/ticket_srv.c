@@ -8,6 +8,7 @@
 #include "schedule_srv.h"
 #include "timeRelated.h"
 #include "play_srv.h"
+#include "seat_srv.h"
 
 // 生成新增Ticket的ID，返回并加1
 int ticket_srv_getID()
@@ -59,7 +60,7 @@ int ticket_srv_deleteByID(int inputID)
 
 //输入ticket_t以修改
 // 修改成功返回1,否则0
-int ticket_srv_modifyByPlay_t(ticket_t inputTicket_t)
+int ticket_srv_modifyByTicket_t(ticket_t inputTicket_t)
 {
 	type_srv_modifyByType_t(ticket_t, inputTicket_t, ticket_node_t, ticket_srv_findByID(inputTicket_t.ID));
 }
@@ -151,4 +152,22 @@ void ticket_srv_deleteTicketByPlayID(int playID)
 		}
 		theTicket = theTicket->next;
 	}
+}
+
+ticket_list_t ticket_srv_findTicketByScheduleAndSeat(schedule_list_t theSchedule, int whichRow, int whichColumn)
+{
+	ticket_list_t theTicket = ticket_head->next;
+	while (theTicket != ticket_head)
+	{
+		if (theTicket->data.schedule_ID == theSchedule->data.ID && theTicket->data.status != TICKET_ERROR)
+		{
+			seat_list_t theSeat = seat_srv_findByID(theTicket->data.seat_ID);
+			if (theSeat->data.row == whichRow && theSeat->data.column == whichColumn)
+			{
+				return theTicket;
+			}
+		}
+		theTicket = theTicket->next;
+	}
+	return NULL;
 }

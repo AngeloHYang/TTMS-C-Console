@@ -3,6 +3,8 @@
 #include "studio_srv.h"
 #include "printChoices.h"
 #include "inputMethod.h"
+#include "schedule_srv.h"
+#include "ticket_srv.h"
 
 // Invalid studio return -1, else 0;
 int seat_UI_printSeatNoMovie(int howManySpace, int studioID)
@@ -144,6 +146,42 @@ void seat_UI_changeSeat(studio_list_t theStudioToModify)
 			printf("\n");
 			keyToContinue("Continue", 8);
 			break;
+		}
+	}
+}
+
+void seat_UI_printSeat(int howManySpace, schedule_list_t theSchedule)
+{
+	studio_list_t theStudio = studio_srv_findByID(theSchedule->data.studio_ID);
+	seat_list_t theSeat;
+
+	if (theStudio != NULL)
+	{
+		for (int whichRow = 1; whichRow <= theStudio->data.rowsCount; whichRow++)
+		{
+			printMultipleTimes(' ', howManySpace);
+			for (int whichColumn = 1; whichColumn <= theStudio->data.colsCount; whichColumn++)
+			{
+				theSeat = seat_srv_findByRoomAndPlace(theStudio->data.ID, whichRow, whichColumn);
+				if (theSeat->data.status == SEAT_NONE)
+				{
+					printf("  ");
+				}
+				else if (theSeat->data.status == SEAT_GOOD)
+				{
+					// Make sure if the seat is taken
+					ticket_list_t theTicket = ticket_srv_findTicketByScheduleAndSeat(theSchedule, whichRow, whichColumn);
+					if (theTicket->data.status == TICKET_SOLD)
+						printf("¨€");
+					else
+						printf("¡õ");
+				}
+				else if (theSeat->data.status == SEAT_BROKEN)
+				{
+					printf("¢ú");
+				}
+			}
+			printf("\n");
 		}
 	}
 }

@@ -49,7 +49,7 @@ extern int ticket_srv_deleteByID(int inputID);
 
 //输入ticket_t以修改
 // 修改成功返回1,否则0
-extern int ticket_srv_modifyByPlay_t(ticket_t inputTicket_t);
+extern int ticket_srv_modifyByTicket_t(ticket_t inputTicket_t);
 
 extern void ticket_srv_printAll();
 
@@ -60,3 +60,5 @@ extern void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentS
 //extern void ticket_srv_makeTicketInvalidBeforeDate(user_date_t byDateBefore, int playID);
 
 extern void ticket_srv_deleteTicketByPlayID(int playID);
+
+extern ticket_list_t ticket_srv_findTicketByScheduleAndSeat(schedule_list_t theSchedule, int whichRow, int whichColumn);
