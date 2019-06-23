@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "basicMove.h"
 #include "common.h"
+#include "play_srv.h"
 
 // 生成新增schedule的ID，返回并加1
 int schedule_srv_getID()
@@ -68,3 +69,71 @@ void schedule_srv_printAll()
 	}
 }
 
+void schedule_srv_makeScheduleERROR_byEndTimeAndStudio(int studioID, int currentSecond)
+{
+	schedule_list_t theSchedule = schedule_head -> next;
+	while (theSchedule != schedule_head)
+	{
+		if (theSchedule->data.studio_ID == studioID)
+		{
+			int endSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time) + play_srv_findByID(theSchedule->data.play_ID)->data.duration * 60;
+			if (currentSecond <= endSecond)
+			{
+				theSchedule->data.exist = 0;
+			}
+		}
+		theSchedule = theSchedule->next;
+	}
+}
+
+void schedule_srv_makeScheduleInvalidAfterDate(user_date_t byDateAfter, int playID)
+{
+	schedule_list_t theSchedule = schedule_head->next;
+
+	while (theSchedule != schedule_head)
+	{
+		if (theSchedule->data.play_ID == playID)
+		{
+			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+			user_time_t swapTime = { 23, 59, 59 };
+			int targetSecond = user_date_t_And_user_time_t_ToSecond(byDateAfter, swapTime);
+			if (scheduleStartSecond > targetSecond)
+			{
+				theSchedule->data.exist = 0;
+			}
+		}
+		theSchedule = theSchedule->next;
+	}
+}
+
+void schedule_srv_makeScheduleInvalidBeforeDate(user_date_t byDateBefore, int playID)
+{
+	schedule_list_t theSchedule = schedule_head->next;
+
+	while (theSchedule != schedule_head)
+	{
+		if (theSchedule->data.play_ID == playID)
+		{
+			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+			user_time_t swapTime = { 23, 59, 59 };
+			int targetSecond = user_date_t_And_user_time_t_ToSecond(byDateBefore, swapTime);
+			if (scheduleStartSecond < targetSecond)
+			{
+				theSchedule->data.exist = 0;
+			}
+		}
+		theSchedule = theSchedule->next;
+	}
+}
+
+void schedule_srv_deleteScheduleByPlayID(int playID)
+{
+	schedule_list_t theSchedule = schedule_head->next;
+	while (theSchedule != schedule_head)
+	{
+		if (theSchedule->data.play_ID == playID)
+		{
+			theSchedule->data.exist = 0;
+		}
+	}
+}

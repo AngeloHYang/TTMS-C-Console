@@ -163,6 +163,7 @@
     <ClCompile Include="manager.c" />
     <ClCompile Include="play_pers.c" />
     <ClCompile Include="play_srv.c" />
+    <ClCompile Include="play_UI.c" />
     <ClCompile Include="printChoices.c" />
     <ClCompile Include="schedule_pers.c" />
     <ClCompile Include="schedule_srv.c" />
@@ -193,6 +194,7 @@
     <ClInclude Include="listTestDrv.h" />
     <ClInclude Include="play_pers.h" />
     <ClInclude Include="play_srv.h" />
+    <ClInclude Include="play_UI.h" />
     <ClInclude Include="printChoices.h" />
     <ClInclude Include="schedule_pers.h" />
     <ClInclude Include="schedule_srv.h" />

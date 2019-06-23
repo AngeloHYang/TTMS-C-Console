@@ -71,6 +71,14 @@ void seat_UI_changeSeat(studio_list_t theStudioToModify)
 		row = inputInt();
 		printf("\n");
 
+		if (row < 0 || row > theStudioToModify->data.rowsCount || column < 0 || column > theStudioToModify->data.colsCount)
+		{
+			printMiddleAddjusted("Invalid input", 14);
+			printf("\n\n\n");
+			keyToContinue("Continue", 8);
+			continue;
+		}
+
 		seat_node_t* theSeat = seat_srv_findByRoomAndPlace(theStudioToModify->data.ID, row, column);
 		seat_status_t old = theSeat->data.status;
 

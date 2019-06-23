@@ -86,3 +86,59 @@ void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond)
 		theTicket = theTicket->next;
 	}
 }
+
+void ticket_srv_makeTicketInvalidAfterDate(user_date_t byDateAfter, int playID)
+{
+	ticket_node_t* theTicket = ticket_head->next;
+	while (theTicket != ticket_head)
+	{
+		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+		if (theSchedule->data.play_ID == playID)
+		{
+			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+
+			user_time_t swapTime = { 23, 59, 59 };
+			int targetSecond = user_date_t_And_user_time_t_ToSecond(byDateAfter, swapTime);
+			if (scheduleStartSecond > targetSecond)
+			{
+				theTicket->data.status = TICKET_ERROR;
+			}
+		}
+		theTicket = theTicket->next;
+	}
+}
+
+void ticket_srv_makeTicketInvalidBeforeDate(user_date_t byDateBefore, int playID)
+{
+	ticket_node_t* theTicket = ticket_head->next;
+	while (theTicket != ticket_head)
+	{
+		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+		if (theSchedule->data.play_ID == playID)
+		{
+			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+
+			user_time_t swapTime = { 0, 0, 0 };
+			int targetSecond = user_date_t_And_user_time_t_ToSecond(byDateBefore, swapTime);
+			if (scheduleStartSecond < targetSecond)
+			{
+				theTicket->data.status = TICKET_ERROR;
+			}
+		}
+		theTicket = theTicket->next;
+	}
+}
+
+void ticket_srv_deleteTicketByPlayID(int playID)
+{
+	ticket_list_t theTicket = ticket_head->next;
+	while (theTicket != NULL)
+	{
+		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+		if (theSchedule->data.play_ID == playID)
+		{
+			theTicket->data.status = TICKET_ERROR;
+		}
+		theTicket = theTicket->next;
+	}
+}

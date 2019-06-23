@@ -123,6 +123,9 @@
     <ClCompile Include="manager.c">
       <Filter>源文件\UI</Filter>
     </ClCompile>
+    <ClCompile Include="play_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -198,6 +201,9 @@
       <Filter>头文件\UI</Filter>
     </ClInclude>
     <ClInclude Include="seat_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="play_UI.h">
       <Filter>头文件\UI</Filter>
     </ClInclude>
   </ItemGroup>

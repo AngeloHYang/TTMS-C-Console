@@ -48,3 +48,5 @@ user_date_t DateNow();
 user_time_t TimeNow();
 
 #endif /* COMMON_H_ */
+
+int validDate(user_date_t dt);

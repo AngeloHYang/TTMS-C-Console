@@ -55,5 +55,8 @@ void test()
 	//printf("***");
 	//system("pause");
 
-	
+	/*char space[10] = "321123";
+	_itoa(123, space, 10);
+	printf("%s\n", space);
+	exit(1);*/
 }

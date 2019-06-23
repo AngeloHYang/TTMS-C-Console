@@ -12,6 +12,7 @@
 #include "ticket_srv.h"
 #include "seat_srv.h"
 #include "timeRelated.h"
+#include "schedule_srv.h"
 
 void studio_UI_manageStudios(account_list_t theUser);
 
@@ -363,7 +364,6 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		printMultipleTimes('\n', 3);
 
 		// Changeable
-		char place1[30], place2[30];
 		char menu1[][30] = {"Name:", "How Many Seats Per Row:", "How Many Seats Per Column:"};
 
 		// Print row and Column
@@ -556,9 +556,9 @@ int studio_UI_deleteStudio(studio_list_t theStudioToModify)
 	setBackgroundColor(7);
 	setFontColor(0);
 	system("cls");
-	printTitleWithCurrentTime("Delete Studio", 12);
+	printTitleWithCurrentTime("Delete Studio", 14);
 	printf("\n\n");
-	printMiddleAddjusted("The studio will be deleted, relavant tickets will be forcedly returned.", 72);
+	printMiddleAddjusted("The studio will be deleted, relavant tickets and schedules will be forcedly returned.", 86);
 	printf("\n\n");
 	if (areYouSure() == 1)
 	{
@@ -575,8 +575,13 @@ int studio_UI_deleteStudio(studio_list_t theStudioToModify)
 					// Remove seat
 					seat_srv_deleteByID(theSeat->data.ID);
 				}
+
+				
 			}
 		}
+		// Delete schedules
+		schedule_srv_makeScheduleERROR_byEndTimeAndStudio(theStudioToModify->data.ID, currentSecond());
+
 		studio_srv_deleteByID(theStudioToModify->data.ID);
 		printMiddleAddjusted("Studio deleted!", 16);
 		printf("\n\n");

@@ -54,3 +54,9 @@ extern int ticket_srv_modifyByPlay_t(ticket_t inputTicket_t);
 extern void ticket_srv_printAll();
 
 extern void ticket_srv_makeTicketERROR_byEndTimeAndSeat(int seatID, int currentSecond);
+
+//extern void ticket_srv_makeTicketInvalidAfterDate(user_date_t byDateAfter, int playID);
+
+//extern void ticket_srv_makeTicketInvalidBeforeDate(user_date_t byDateBefore, int playID);
+
+extern void ticket_srv_deleteTicketByPlayID(int playID);

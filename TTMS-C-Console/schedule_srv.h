@@ -63,3 +63,11 @@ extern int schedule_srv_deleteByID(int inputID);
 extern int schedule_srv_modifyBySchedule_t(schedule_t inputSchedule_t);
 
 extern void schedule_srv_printAll();
+
+extern void schedule_srv_makeScheduleERROR_byEndTimeAndStudio(int studioID, int currentSecond);
+
+extern void schedule_srv_makeScheduleInvalidAfterDate(user_date_t byDateAfter, int playID);
+
+extern void schedule_srv_makeScheduleInvalidBeforeDate(user_date_t byDateBefore, int playID);
+
+extern void schedule_srv_deleteScheduleByPlayID(int playID);

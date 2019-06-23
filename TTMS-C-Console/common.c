@@ -152,3 +152,55 @@ user_time_t TimeNow(){
  */
 
 
+int validDate(user_date_t dt)
+{
+	int valid = 1;
+	if (dt.year <= 0)
+	{
+		valid = 0;
+	}
+	if (dt.month > 12 || dt.month < 1)
+	{
+		valid = 0;
+	}
+
+	if (dt.day < 1)
+	{
+		valid = 0;
+	}
+
+	if (dt.month == 1 || dt.month == 3 || dt.month == 5 || dt.month == 7 || dt.month == 8 || dt.month == 10 || dt.month == 12)
+	{
+		if (dt.day > 31)
+		{
+			valid = 0;
+		}
+	}
+	else if (dt.month == 2)
+	{
+		if (dt.year % 100 == 0 && dt.year % 400 != 0)
+		{
+			if (dt.day > 28)
+				valid = 0;
+		}
+		else if (dt.year % 4 != 0)
+		{
+			if (dt.day > 28)
+				valid = 0;
+		}
+		else
+		{
+			if (dt.day > 29)
+				valid = 0;
+		}
+	}
+	else
+	{
+		if (dt.day > 30)
+		{
+			valid = 0;
+		}
+	}
+
+	return valid;
+}

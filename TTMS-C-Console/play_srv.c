@@ -30,7 +30,23 @@ play_t play_srv_generate(int ID, char name[51], char type[21], char area[11], pl
 
 void play_srv_add(play_t inputPlay_t) //影片的添加
 {
-	type_srv_add(play_t, inputPlay_t, play_node_t, play_head);
+	play_node_t* thisOne = (play_node_t*)malloc(sizeof(play_node_t));
+	thisOne->data = inputPlay_t;
+
+	play_node_t* operate = play_head -> next;
+
+	while (operate != play_head)
+	{
+		if (DateCmp(operate->data.start_date, thisOne->data.start_date) == -1 || DateCmp(operate->data.start_date, thisOne->data.start_date) == 0)
+		{
+			List_InsertBefore(operate, thisOne);
+			return;
+		}
+		operate = operate->next;
+	}
+
+
+	List_AddTail(play_head, thisOne);
 }
 
 //按照ID查找，返回play_list_t.没找到则返回NULL
@@ -73,4 +89,38 @@ void play_srv_printAll()
 		counter++;
 		swap = swap->next;
 	}
+}
+
+// 查询总共有多少plays
+int play_srv_howManyInToto()
+{
+	play_node_t* thisOne = play_head->next;
+	int counter = 0;
+	while (thisOne != play_head)
+	{
+		if (thisOne->data.exist == 1)
+		{
+			counter++;
+		}
+		thisOne = thisOne->next;
+	}
+	return counter;
+}
+
+// 不存在则为NULL
+play_list_t play_srv_findByWhichOne(int whichOne)
+{
+	int counter = 1; 
+	play_node_t* thisOne = play_head->next; 
+	while (thisOne != play_head)
+	{
+		if (counter == whichOne && thisOne->data.exist == 1)
+			return thisOne;
+		thisOne = thisOne->next;
+		if (thisOne->data.exist == 1)
+		{
+			counter++;
+		}
+	}
+	return NULL;
 }

@@ -7,6 +7,7 @@
 #include "account_srv.h"
 #include "templates.h"
 #include "account_UI.h"
+#include "play_UI.h"
 
 int managerLogin(account_list_t theUser)
 {
@@ -35,7 +36,7 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 1)
 		{
-			//account_UI_manageAccounts(theUser);
+			play_UI_managePlays(theUser);
 		}
 		else if (selection == 2)
 		{
