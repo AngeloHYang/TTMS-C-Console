@@ -33,6 +33,7 @@ void schedule_UI_changeStartTime(schedule_list_t theScheduleToModify);
 int schedule_UI_deleteSchedule(schedule_list_t theScheduleToModify);
 
 void schedule_UI_checkByID();
+void schedule_UI_checkByIDClerk(int secondNow, account_list_t theUser);
 
 void schedule_UI_AddASchedule();
 
@@ -109,7 +110,7 @@ void schedule_UI_clerkSchedules(account_list_t theUser)
 		}
 		else if (selection == 1)
 		{
-			//schedule_UI_checkByIDClerk(currentSecond());
+			schedule_UI_checkByIDClerk(currentSecond(), theUser);
 		}
 		else if (selection == 2)
 		{
@@ -436,14 +437,14 @@ void schedule_UI_viewSchedulesForClerk(int howManyPerPage, int secondNow, accoun
 				//setBackgroundColor(0);
 				//setFontColor(7);
 
-				printScheduleClerkListOneLine(whichOneToPrint, 1, TimeNow);
+				printScheduleClerkListOneLine(whichOneToPrint, 1, secondNow);
 
 				//setBackgroundColor(7);
 				//setFontColor(0);
 			}
 			else
 			{
-				printScheduleClerkListOneLine(whichOneToPrint, 0, TimeNow);
+				printScheduleClerkListOneLine(whichOneToPrint, 0, secondNow);
 			}
 		}
 
@@ -623,6 +624,11 @@ void printScheduleClerkListOneLine(int whichOne, int selected, int secondNow)
 {
 	schedule_node_t* thisOne = schedule_srv_findByWhichOneAvailable(whichOne, secondNow);
 
+	/*if (thisOne == NULL)
+	{
+		printf("NULL!!!");
+		return;
+	}*/
 
 	printMultipleTimes(' ', 6);
 	if (selected == 1)
@@ -950,7 +956,7 @@ void schedule_UI_modifyScheduleClerk(schedule_list_t theScheduleToModify, int se
 		printMiddleAddjusted("Seat:", 6);
 		printf("\n");
 		seat_UI_printSeat((100 - theStudio->data.colsCount) / 2, theScheduleToModify);
-		printf("\n\n");
+		printf("\n");
 
 		char result[100] = { "" };
 		char swapArea[100];
@@ -996,7 +1002,7 @@ void schedule_UI_modifyScheduleClerk(schedule_list_t theScheduleToModify, int se
 			printf("Sell a Ticket");
 
 		}
-		printf("\n\n");
+		printf("\n");
 
 		if (navigation == 1)
 		{
@@ -1027,7 +1033,7 @@ void schedule_UI_modifyScheduleClerk(schedule_list_t theScheduleToModify, int se
 		}
 		else
 		{
-			printMultipleTimes(' ', 50 - strlen("Return"));
+			printMultipleTimes(' ', 50 - strlen("Return")/2);
 			printf("Return");
 		}
 
@@ -1251,6 +1257,44 @@ void schedule_UI_checkByID()
 	}
 }
 
+void schedule_UI_checkByIDClerk(int secondNow, account_list_t theUser)
+{
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+	printTitleWithCurrentTime("Check by ID", 12);
+	printf("\n\n");
+	printMiddleAddjusted("Please input the ID of the schedule that you are looking for", 61);
+	printf("\n\n");
+
+	printMiddleLeft("ID:", 4, 2);
+	printMultipleTimes(' ', 2);
+	int number = inputInt();
+
+	schedule_list_t theSchedule = schedule_srv_findByID(number);
+	printMultipleTimes('\n', 2);
+	if (theSchedule == NULL)
+	{
+		printMiddleAddjusted("The schedule doesn't exist!", 28);
+		printf("\n\n");
+		keyToContinue("go back", 7);
+	}
+	else
+	{
+		int theScheduleSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+		if (theScheduleSecond <= secondNow)
+		{
+			printMiddleAddjusted("The schedule isn't available to sell or return tickets now!", 60);
+			printf("\n\n");
+			keyToContinue("go back", 7);
+		}
+		else
+		{
+			schedule_UI_modifyScheduleClerk(theSchedule, secondNow, theUser);
+		}
+	}
+}
+
 void schedule_UI_AddASchedule()
 {
 	schedule_t inputSchedule;
@@ -1303,7 +1347,7 @@ void schedule_UI_AddASchedule()
 				printMiddleAddjusted("Invalid play!", 14);
 				printf("\n");
 				keyToContinue("Continue", 8);
-				continue;
+				break;
 			}
 		}
 		else

@@ -49,7 +49,7 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 4)
 		{
-
+			ticket_UI_checkTicket(theUser);
 		}
 		else if (selection == 5)
 		{

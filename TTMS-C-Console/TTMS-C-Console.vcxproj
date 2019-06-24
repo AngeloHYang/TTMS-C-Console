@@ -176,6 +176,7 @@
     <ClCompile Include="templates.c" />
     <ClCompile Include="ticket_pers.c" />
     <ClCompile Include="ticket_srv.c" />
+    <ClCompile Include="ticket_UI.c" />
     <ClCompile Include="timeRelated.c" />
     <ClCompile Include="totalLoadANDSave.c" />
     <ClCompile Include="studio_pers.c" />

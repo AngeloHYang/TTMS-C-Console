@@ -483,6 +483,7 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 				printf("%s\n", menu2[whichOne]);
 			}
 		}
+		printf("\n");
 		if (navigation == 8)
 		{
 			printMultipleTimes(' ', 50 - strlen("Delete"));
@@ -499,7 +500,7 @@ void play_UI_modifyPlay(play_list_t thePlayToModify)
 			printf("Delete");
 			
 		}
-		printf("\n\n");
+		printf("\n");
 		if (navigation == 9)
 		{
 			printMultipleTimes(' ', 50 - strlen("Return"));

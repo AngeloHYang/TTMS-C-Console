@@ -630,14 +630,10 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		printTitleWithCurrentTime("Studio Modify", 15);
 		printMultipleTimes('\n', 2);
 
-		
-		printf("\n");
 
 		printMiddleLeft("ID:", 4, 2);
 		printMultipleTimes(' ', 2);
 		printf("%d\n", theStudioToModify->data.ID);
-
-		printMultipleTimes('\n', 3);
 
 		// Changeable
 		char menu1[][30] = {"Name:", "How Many Seats Per Row:", "How Many Seats Per Column:"};
@@ -654,7 +650,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 		printMiddleAddjusted("Seats:", 7);
 		printf("\n");
 		seat_UI_printSeatNoMovie(50 - theStudioToModify->data.colsCount / 2, theStudioToModify->data.ID);
-		printf("\n\n\n");
+		printf("\n\n");
 
 		// Print name
 		if (navigation == 0)
@@ -678,6 +674,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			printf("%s\n\n", theStudioToModify->data.name);
 		}
 
+		printf("\n");
 		if (navigation == 1)
 		{
 			printMultipleTimes(' ', (100 - strlen("Change Seat")) / 2);

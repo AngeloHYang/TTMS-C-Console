@@ -9,6 +9,7 @@
 #include "account_UI.h"
 #include "play_UI.h"
 #include "schedule_UI.h"
+#include "common.h"
 
 int clerkLogin(account_list_t theUser)
 {
@@ -41,11 +42,33 @@ int clerkLogin(account_list_t theUser)
 		}
 		else if (selection == 2)
 		{
-			//studio_UI_manageStudiosForManager(theUser);
+			ticket_UI_checkTicket(theUser);
 		}
 		else if (selection == 3)
 		{
-			//schedule_UI_manageSchedules(theUser);
+			while (1)
+			{
+				char Menu[3][100] = { "Today", "This Month", "Return" };
+				char* pointers[3] = { Menu[0], Menu[1], Menu[2] };
+				char words[42] = "How would you like to check your statics?";
+				int selection = standardSelectMenuView(7, 0, "Check Statics", words, 42, pointers, 3, 100);
+				if (selection == 0)
+				{
+					user_date_t a = DateNow();
+					statics_UI_viewClerk(theUser, a, a);
+				}
+				else if (selection == 1)
+				{
+					user_date_t a = DateNow();
+					a.day = 1;
+					user_date_t b = DateNow();
+					statics_UI_viewClerk(theUser, a, b);
+				}
+				else
+				{
+					break;
+				}
+			}
 		}
 		else if (selection == 4)
 		{

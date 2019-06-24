@@ -982,7 +982,7 @@ void statics_UI_viewClerk(account_node_t* theClerkToView, user_date_t startDate,
 
 		printMiddleLeft("From:", 6, 2);
 		printf("  ");
-		printf("%4d.%-2d.%2d\n", startDate.year, startDate.month, startDate.day);
+		printf("%4d.%2d.%2d\n", startDate.year, startDate.month, startDate.day);
 
 		printMiddleLeft("To:", 6, 2);
 		printf("  ");
