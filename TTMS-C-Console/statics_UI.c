@@ -21,7 +21,7 @@ void statics_UI_boxOfficeRecordsViewAll(int howManyPerPage);
 
 void printPlayBoxOfficeIncomeManagerListOneLine(int whichOne, int selected);
 
-void schedule_UI_viewPlay(play_list_t thePlayToView);
+void statics_UI_viewPlay(play_list_t thePlayToView);
 
 void statics_UI_checkByPlayID();
 
@@ -32,6 +32,10 @@ void statics_UI_salesMenuForReal(user_date_t startDate, user_date_t endDate);
 void statics_UI_salesDateViewAll(int howManyPerPage, user_date_t startDate, user_date_t endDate);
 
 void printSalesAccountDateManagerListOneLine(int whichOne, int selected, user_date_t startDate, user_date_t endDate);
+
+void statics_UI_viewClerk(account_node_t* theClerkToView, user_date_t startDate, user_date_t endDate);
+
+void statics_UI_checkByAccountID(user_date_t startDate, user_date_t endDate);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void statics_UI_Menu(account_list_t theUser)
 {
@@ -309,7 +313,7 @@ void statics_UI_boxOfficeRecordsViewAll(int howManyPerPage)
 				int theOneToModify = selection + (currentPage - 1) * howManyPerPage;
 				play_node_t* thePlayToView = play_srv_findByWhichOne(theOneToModify);
 
-				schedule_UI_viewPlay(thePlayToView);
+				statics_UI_viewPlay(thePlayToView);
 
 				// Update page sum
 				if (play_srv_howManyInToto() % howManyPerPage == 0)
@@ -359,9 +363,9 @@ void printPlayBoxOfficeIncomeManagerListOneLine(int whichOne, int selected)
 	printf("|");
 	printf("%-8d", ticket_srv_playIDReturnSoldNumber(thisOne->data.ID) * thisOne->data.price);
 	printf("|");
-	printf("%-4d.%-2d.%-2d", thisOne->data.start_date.year, thisOne->data.start_date.month, thisOne->data.start_date.day);
+	printf("%4d.%2d.%2d", thisOne->data.start_date.year, thisOne->data.start_date.month, thisOne->data.start_date.day);
 	printf("|");
-	printf("%-4d.%-2d.%-2d", thisOne->data.end_date.year, thisOne->data.end_date.month, thisOne->data.end_date.day);
+	printf("%4d.%2d.%2d", thisOne->data.end_date.year, thisOne->data.end_date.month, thisOne->data.end_date.day);
 	printf("|");
 
 	if (selected == 1)
@@ -375,7 +379,7 @@ void printPlayBoxOfficeIncomeManagerListOneLine(int whichOne, int selected)
 	printf("\n");
 }
 
-void schedule_UI_viewPlay(play_list_t thePlayToView)
+void statics_UI_viewPlay(play_list_t thePlayToView)
 {
 	int toReturn = 0;
 	int navigation = 10;
@@ -567,7 +571,7 @@ void statics_UI_checkByPlayID()
 	}
 	else
 	{
-		schedule_UI_viewPlay(thePlay);
+		statics_UI_viewPlay(thePlay);
 	}
 }
 
@@ -670,7 +674,7 @@ void statics_UI_salesMenuForReal(user_date_t startDate, user_date_t endDate)
 		}
 		else if (selection == 1)
 		{
-			//statics_UI_checkByPlayID();
+			statics_UI_checkByAccountID(startDate, endDate);
 		}
 		else if (selection == 2)
 		{
@@ -879,9 +883,9 @@ void statics_UI_salesDateViewAll(int howManyPerPage, user_date_t startDate, user
 			{
 
 				int theOneToModify = selection + (currentPage - 1) * howManyPerPage;
-				//play_node_t* thePlayToView = play_srv_findByWhichOne(theOneToModify);
+				account_node_t* theClerkToView = account_srv_findClerkByWhichOne(theOneToModify);
 
-				//schedule_UI_viewPlay(thePlayToView);
+				statics_UI_viewClerk( theClerkToView, startDate, endDate);
 
 				// Update page sum
 				if (account_srv_howManyClerkInToto() % howManyPerPage == 0)
@@ -914,8 +918,6 @@ void statics_UI_salesDateViewAll(int howManyPerPage, user_date_t startDate, user
 
 void printSalesAccountDateManagerListOneLine(int whichOne, int selected, user_date_t startDate, user_date_t endDate)
 {
-	//play_node_t* thisOne = play_srv_findByWhichOne(whichOne);
-
 	account_node_t* thisOne = account_srv_findClerkByWhichOne(whichOne);
 
 	int sold = 0, total = 0;
@@ -936,9 +938,9 @@ void printSalesAccountDateManagerListOneLine(int whichOne, int selected, user_da
 	printf("|");
 	printf("%-8d", total);
 	printf("|");
-	printf("%-4d.%-2d.%-2d", startDate.year, startDate.month, startDate.day);
+	printf("%4d.%2d.%2d", startDate.year, startDate.month, startDate.day);
 	printf("|");
-	printf("%-4d.%-2d.%-2d", endDate.year, endDate.month, endDate.day);
+	printf("%4d.%2d.%2d", endDate.year, endDate.month, endDate.day);
 	printf("|");
 
 	if (selected == 1)
@@ -950,4 +952,92 @@ void printSalesAccountDateManagerListOneLine(int whichOne, int selected, user_da
 	printMultipleTimes(' ', 8);
 	printMultipleTimes('-', 83);
 	printf("\n");
+}
+
+void statics_UI_viewClerk(account_node_t* theClerkToView, user_date_t startDate, user_date_t endDate)
+{
+	int toReturn = 0;
+	int navigation = 10;
+	char inputChar = '\0';
+	account_list_t thisOne = theClerkToView;
+
+	while (toReturn == 0)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+		system("cls");
+
+		// Unchangeable
+		printTitleWithCurrentTime("View Sales Detail", 18);
+		printMultipleTimes('\n', 2);
+		printf("\n");
+
+		printMiddleLeft("Name:", 6, 2);
+		printf("  ");
+		printf("%s\n", theClerkToView->data.nickname);
+
+		printMiddleLeft("ID:", 4, 2);
+		printf("  ");
+		printf("%d\n", theClerkToView->data.ID);
+
+		printMiddleLeft("From:", 6, 2);
+		printf("  ");
+		printf("%4d.%-2d.%2d\n", startDate.year, startDate.month, startDate.day);
+
+		printMiddleLeft("To:", 6, 2);
+		printf("  ");
+		printf("%4d.%2d.%2d\n", endDate.year, endDate.month, endDate.day);
+
+		int sold = 0, total = 0;
+		ticket_srv_clerkIDAndDateToSoldNumberAndTotal(thisOne->data.ID, startDate, endDate, &sold, &total);
+		printMiddleLeft("Sold:", 6, 2); 
+		printf("  %-8d\n", sold);
+		printMiddleLeft("Total:", 7, 2);
+		printf("  %-8d\n", total);
+
+		printf("\n\n");
+
+		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
+		setBackgroundColor(0);
+		setFontColor(7);
+		printf("%s", "Return");
+		setBackgroundColor(7);
+		setFontColor(0);
+		printf("\n");
+		printMiddleAddjusted("  ", 3);
+
+		inputChar = _getch();
+		if (inputChar == 13)
+		{
+			break;
+		}
+	}
+}
+
+void statics_UI_checkByAccountID(user_date_t startDate, user_date_t endDate)
+{
+	setBackgroundColor(7);
+	setFontColor(0);
+	system("cls");
+	printTitleWithCurrentTime("Check by ID", 12);
+	printf("\n\n");
+	printMiddleAddjusted("Please input the ID of the account that you are looking for", 60);
+	printf("\n\n");
+
+	printMiddleLeft("ID:", 4, 2);
+	printMultipleTimes(' ', 2);
+	int number = inputInt();
+
+	account_list_t theAccount = account_srv_findByID(number);
+	printMultipleTimes('\n', 2);
+	if (theAccount == NULL || theAccount->data.type != USER_CLERK)
+	{
+		printMiddleAddjusted("The account doesn't exist or it isn't a clerk!", 47);
+		printf("\n\n");
+		keyToContinue("go back", 7);
+	}
+	else
+	{
+		statics_UI_viewClerk(theAccount, startDate, endDate);
+	}
 }

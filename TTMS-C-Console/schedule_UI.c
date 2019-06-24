@@ -324,7 +324,7 @@ void printScheduleManagerListOneLine(int whichOne, int selected)
 	printf("|");
 	printf("%-30s", studio_srv_findByID(thisOne->data.studio_ID)->data.name);
 	printf("|");
-	printf("%-4d.%-2d.%-2d", thisOne->data.date.year, thisOne->data.date.month, thisOne->data.date.day);
+	printf("%4d.%2d.%2d", thisOne->data.date.year, thisOne->data.date.month, thisOne->data.date.day);
 	printf("|");
 	printf(" %-2d:%-2d:%-2d ", thisOne->data.time.hour, thisOne->data.time.minute, thisOne->data.time.second);
 	printf("|");
@@ -780,7 +780,7 @@ void schedule_UI_AddASchedule()
 				printf("%s\n", thePlay->data.name);
 				printMiddleLeft("Date:", 6, 2);
 				printf("  ");
-				printf("%-4d.%-2d.%-2d to %-4d.%-2d.%-2d\n", thePlay->data.start_date.year, thePlay->data.start_date.month, thePlay->data.start_date.day, thePlay->data.end_date.year, thePlay->data.end_date.month, thePlay->data.end_date.day);
+				printf("%4d.%2d.%2d to %4d.%2d.%2d\n", thePlay->data.start_date.year, thePlay->data.start_date.month, thePlay->data.start_date.day, thePlay->data.end_date.year, thePlay->data.end_date.month, thePlay->data.end_date.day);
 				printf("\n");
 			}
 			else
@@ -802,7 +802,7 @@ void schedule_UI_AddASchedule()
 			printf("%s\n", thePlay->data.name);
 			printMiddleLeft("Date:", 6, 2);
 			printf("  ");
-			printf("%-4d.%-2d.%-2d to %-4d.%-2d.%-2d\n", thePlay->data.start_date.year, thePlay->data.start_date.month, thePlay->data.start_date.day, thePlay->data.end_date.year, thePlay->data.end_date.month, thePlay->data.end_date.day);
+			printf("%4d.%2d.%2d to %4d.%2d.%2d\n", thePlay->data.start_date.year, thePlay->data.start_date.month, thePlay->data.start_date.day, thePlay->data.end_date.year, thePlay->data.end_date.month, thePlay->data.end_date.day);
 			printf("\n");
 		}
 		printf("\n");
