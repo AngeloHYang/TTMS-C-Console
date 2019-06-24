@@ -65,3 +65,7 @@ extern void ticket_srv_deleteTicketByPlayID(int playID);
 extern ticket_list_t ticket_srv_findTicketByScheduleAndSeat(schedule_list_t theSchedule, int whichRow, int whichColumn);
 
 extern void ticket_srv_deleteTicketBySchedule(int scheduleID);
+
+extern int ticket_srv_playIDReturnSoldNumber(int playID);
+
+extern void ticket_srv_clerkIDAndDateToSoldNumberAndTotal(int clerkID, user_date_t startDate, user_date_t endDate, int* sold, int* total);

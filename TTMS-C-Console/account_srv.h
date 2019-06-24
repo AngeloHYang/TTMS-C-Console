@@ -52,6 +52,8 @@ extern int account_srv_deleteByID(int inputID);
 // 查询总共有多少用户
 extern int account_srv_howManyInToto();
 
+extern int account_srv_howManyClerkInToto();
+
 // 根据username查找,失败返回NULL
 extern account_list_t account_srv_findByUsername(char input[30]);
 
@@ -61,3 +63,5 @@ extern void account_srv_tellType(account_t inputAccount_t, char* inputSpace);
 
 // 不存在则为NULL
 extern account_list_t account_srv_findByWhichOne(int whichOne);
+
+extern account_list_t account_srv_findClerkByWhichOne(int whichOne);

@@ -170,6 +170,7 @@
     <ClCompile Include="schedule_srv.c" />
     <ClCompile Include="seat_pers.c" />
     <ClCompile Include="seat_srv.c" />
+    <ClCompile Include="statics_UI.c" />
     <ClCompile Include="studio_UI.c" />
     <ClCompile Include="templates.c" />
     <ClCompile Include="ticket_pers.c" />

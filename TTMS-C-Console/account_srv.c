@@ -55,6 +55,21 @@ int account_srv_howManyInToto()
 	type_srv_howManyInToto(account_node_t, account_head);
 }
 
+int account_srv_howManyClerkInToto()
+{
+	account_node_t* thisOne = account_head->next;
+	int counter = 0;
+	while (thisOne != account_head)
+	{
+		if (thisOne->data.type == USER_CLERK)
+		{
+			counter++;
+		}
+		thisOne = thisOne->next;
+	}
+	return counter;
+}
+
 // 根据username查找,失败返回NULL
 account_list_t account_srv_findByUsername(char input[30])
 {
@@ -109,4 +124,27 @@ account_list_t account_srv_findByWhichOne(int whichOne)
 	return NULL;
 	*/
 	type_srv_findByWhichOne(account_node_t, account_head, whichOne);
+}
+
+// 不存在则为NULL
+account_list_t account_srv_findClerkByWhichOne(int whichOne)
+{
+	int counter = 0;
+	account_node_t* thisOne = account_head -> next;
+	if (thisOne != account_head && thisOne->data.type == USER_CLERK)
+	{
+		counter++;
+	}
+
+	while (thisOne != account_head)
+	{
+		if (counter == whichOne && thisOne->data.type == USER_CLERK)
+		{
+			return thisOne;
+		}
+		thisOne = thisOne->next;
+		if (thisOne->data.type == USER_CLERK)
+			counter++;
+	}
+	return NULL;
 }

@@ -122,7 +122,7 @@ play_list_t play_srv_findByWhichOne(int whichOne)
 {
 	int counter = 0; 
 	play_node_t* thisOne = play_head->next; 
-	if (thisOne->data.exist == 1)
+	if (thisOne != play_head && thisOne->data.exist == 1)
 	{
 		counter = 1;
 	}

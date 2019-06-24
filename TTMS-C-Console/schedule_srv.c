@@ -185,7 +185,7 @@ schedule_node_t* schedule_srv_findByWhichOne(int whichOne)
 {
 	int counter = 0;
 	schedule_node_t* thisOne = schedule_head->next;
-	if (thisOne->data.exist == 1)
+	if (thisOne != schedule_head && thisOne->data.exist == 1)
 	{
 		counter = 1;
 	}

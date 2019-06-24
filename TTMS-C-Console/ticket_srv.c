@@ -10,6 +10,7 @@
 #include "play_srv.h"
 #include "seat_srv.h"
 #include "studio_srv.h"
+#include "account_srv.h"
 
 // 生成新增Ticket的ID，返回并加1
 int ticket_srv_getID()
@@ -189,5 +190,48 @@ void ticket_srv_deleteTicketBySchedule(int scheduleID)
 				theTicket->data.status = TICKET_ERROR;
 			}
 		}
+	}
+}
+
+int ticket_srv_playIDReturnSoldNumber(int playID)
+{
+	int counter = 0;
+	ticket_list_t theTicket = ticket_head->next;
+	while (theTicket != ticket_head)
+	{
+		schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+		if (theTicket->data.status == TICKET_SOLD)
+		{
+			if (theSchedule != NULL && theSchedule->data.play_ID == playID)
+			{
+				counter++;
+			}
+		}
+		theTicket = theTicket->next;
+	}
+	return counter;
+}
+
+void ticket_srv_clerkIDAndDateToSoldNumberAndTotal(int clerkID, user_date_t startDate, user_date_t endDate, int* sold, int* total)
+{
+	account_node_t* theAccount = account_srv_findByID(clerkID);
+	ticket_list_t theTicket = ticket_head->next;
+	*sold = 0;
+	*total = 0;
+
+	while (theTicket != ticket_head)
+	{
+		if (theTicket->data.soldBy == clerkID && theTicket->data.status == TICKET_SOLD)
+		{
+			schedule_list_t theSchedule = schedule_srv_findByID(theTicket->data.schedule_ID);
+			if ( DateCmp(theSchedule->data.date, startDate) != -1 && DateCmp(theSchedule->data.date, endDate) != 1)
+			{
+				(*sold)++;
+				play_list_t thePlay = play_srv_findByID(theSchedule->data.play_ID);
+				(*total) = (*total) + thePlay->data.price;
+			}
+		}
+
+		theTicket = theTicket->next;
 	}
 }

@@ -16,8 +16,8 @@ int managerLogin(account_list_t theUser)
 	setFontColor(0);
 
 
-	char Menu[7][100] = { "Personal Profile", "Manage Plays", "Manage Schedules", "Check Tickets", "Statics", "Switch Account", "Quit"};
-	char* pointers[7] = { Menu[0], Menu[1], Menu[2], Menu[3], Menu[4], Menu[5], Menu[6] };
+	char Menu[8][100] = { "Personal Profile", "Manage Plays", "Check Studios", "Manage Schedules", "Check Tickets", "Statics", "Switch Account", "Quit"};
+	char* pointers[8] = { Menu[0], Menu[1], Menu[2], Menu[3], Menu[4], Menu[5], Menu[6], Menu[7] };
 
 
 	char words[100];
@@ -30,7 +30,7 @@ int managerLogin(account_list_t theUser)
 		memset(words, '\0', sizeof(words));
 		strcat(words, "Hello, ");
 		strcat(words, theUser->data.nickname);
-		selection = standardSelectMenuView(7, 0, "Manager", words, 8 + strlen(theUser->data.nickname), pointers, 7, 100);
+		selection = standardSelectMenuView(7, 0, "Manager", words, 8 + strlen(theUser->data.nickname), pointers, 8, 100);
 		if (selection == 0)
 		{
 			account_UI_changeProfile(theUser);
@@ -41,11 +41,11 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 2)
 		{
-			schedule_UI_manageSchedules(theUser);
+			studio_UI_manageStudiosForManager(theUser);
 		}
 		else if (selection == 3)
 		{
-
+			schedule_UI_manageSchedules(theUser);
 		}
 		else if (selection == 4)
 		{
@@ -53,11 +53,15 @@ int managerLogin(account_list_t theUser)
 		}
 		else if (selection == 5)
 		{
+			statics_UI_Menu(theUser);
+		}
+		else if (selection == 6)
+		{
 			extern void all_Save();
 			void all_Save();
 			break;
 		}
-		else if (selection == 6)
+		else if (selection == 7)
 		{
 			extern void all_Save();
 			void all_Save();
