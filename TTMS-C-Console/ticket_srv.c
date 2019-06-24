@@ -9,6 +9,7 @@
 #include "timeRelated.h"
 #include "play_srv.h"
 #include "seat_srv.h"
+#include "studio_srv.h"
 
 // 生成新增Ticket的ID，返回并加1
 int ticket_srv_getID()
@@ -17,13 +18,13 @@ int ticket_srv_getID()
 }
 
 //用于生成一个ticket_t，注意返回值
-ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int price, int soldBy, ticket_status_t status)
+ticket_t ticket_srv_generate(int ID, int schedule_ID, int seat_ID, int soldBy, ticket_status_t status)
 {
 	ticket_t thisOne;
 	thisOne.ID = ID;
 	thisOne.schedule_ID = schedule_ID;
 	thisOne.seat_ID = seat_ID;
-	thisOne.price = price;
+	//thisOne.price = price;
 	thisOne.soldBy = soldBy;
 	thisOne.status = status;
 	return thisOne;
@@ -72,7 +73,7 @@ void ticket_srv_printAll()
 	while (swap != ticket_head)
 	{
 		printf("ID: %d\n", swap->data.ID);
-			printf("Price: %d\n", swap->data.price);
+			//printf("Price: %d\n", swap->data.price);
 		counter++;
 		swap = swap->next;
 	}
@@ -170,4 +171,23 @@ ticket_list_t ticket_srv_findTicketByScheduleAndSeat(schedule_list_t theSchedule
 		theTicket = theTicket->next;
 	}
 	return NULL;
+}
+
+void ticket_srv_deleteTicketBySchedule(int scheduleID)
+{
+	schedule_list_t theSchedule = schedule_srv_findByID(scheduleID);
+
+	studio_list_t theStudio = studio_srv_findByID(theSchedule->data.studio_ID);
+
+	for (int whichRow = 1; whichRow <= theStudio->data.rowsCount; whichRow++ )
+	{
+		for (int whichColumn = 1; whichColumn <= theStudio->data.colsCount; whichColumn++)
+		{
+			ticket_list_t theTicket = ticket_srv_findTicketByScheduleAndSeat(theSchedule, whichRow, whichColumn);
+			if (theTicket != NULL)
+			{
+				theTicket->data.status = TICKET_ERROR;
+			}
+		}
+	}
 }

@@ -204,3 +204,21 @@ int validDate(user_date_t dt)
 
 	return valid;
 }
+
+int validTime(user_time_t tm)
+{
+	int valid = 1;
+	if (tm.hour < 0 || tm.hour > 23)
+	{
+		valid = 0;
+	}
+	if (tm.minute > 59 || tm.minute < 0)
+	{
+		valid = 0;
+	}
+	if (tm.second > 59 || tm.second < 0)
+	{
+		valid = 0;
+	}
+	return valid;
+}

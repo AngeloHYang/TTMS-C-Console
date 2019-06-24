@@ -456,7 +456,7 @@ void studio_UI_modifyStudio(studio_list_t theStudioToModify)
 			printf("\n");
 		}
 
-		anotherLine(3);
+		anotherLine(1);
 		print_(100);
 		printf("\n\n ¡ñ Switch with \"W\", \"S\". Select with \"Enter\".\n");
 		printMiddleAddjusted("", 1);

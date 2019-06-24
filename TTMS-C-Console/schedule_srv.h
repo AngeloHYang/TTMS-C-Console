@@ -17,6 +17,8 @@ typedef struct {
 }ttms_date_t;
 */
 
+#ifndef _schedule_related
+#define _schedule_related
 
 typedef struct {
 	int ID;
@@ -27,14 +29,19 @@ typedef struct {
 	user_time_t time;
 
 	int exist;
-	
+
 }schedule_t;
 
 typedef struct schedule_node {
 	schedule_t data;
 	struct schedule_node* next;
 	struct schedule_node* prev;
-}schedule_node_t,*schedule_list_t;
+}schedule_node_t, * schedule_list_t;
+
+
+#endif // ! _schedule_related
+
+
 
 // variables
 
@@ -76,3 +83,5 @@ extern int schedule_srv_howManyInToto();
 
 // 不存在则为NULL
 extern schedule_node_t* schedule_srv_findByWhichOne(int whichOne);
+
+extern int schedule_srv_checkIfConflictsWithOtherSchedules(schedule_t theSchedule);

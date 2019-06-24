@@ -201,3 +201,79 @@ schedule_node_t* schedule_srv_findByWhichOne(int whichOne)
 	}
 	return NULL;
 }
+
+int schedule_srv_checkIfConflictsWithOtherSchedules(schedule_t theSchedule)
+{
+	int OK = 1;
+	/*
+	1 2
+
+
+
+		1        1
+		2    2                                         1
+
+
+
+		1     1
+		2            2                                1
+
+
+		1      1
+		2                  2                          0
+
+		1       1
+		2                2                      0
+
+		1       1
+		2                           2            0
+
+
+		1         1
+		2     2                        0
+
+		1          1
+		2          2                   0
+
+		1           1
+		2                   2          0
+
+		1           1
+		2  2                     0
+
+		1           1
+		2    2                 0
+
+
+		1            1
+		2             2         0
+
+		1             1
+		2     2         1
+
+		1            1
+		2   2        1*/
+
+	// Check Before
+	schedule_list_t otherSchedule = schedule_head->next;
+	while (otherSchedule != schedule_head)
+	{
+		if (otherSchedule->data.studio_ID == theSchedule.studio_ID && otherSchedule->data.exist == 1)
+		{
+			play_list_t thePlay = play_srv_findByID(theSchedule.play_ID);
+			int theOneStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule.date, theSchedule.time);
+			int theOneEndSecond = (theOneStartSecond) + (thePlay->data.duration) * 60;
+
+			play_list_t otherPlay = play_srv_findByID(otherSchedule->data.play_ID);
+			int otherStartSecond = user_date_t_And_user_time_t_ToSecond(otherSchedule->data.date, otherSchedule->data.time);
+			int otherEndSecond = otherStartSecond + (otherPlay->data.duration) * 60;
+
+			if (otherStartSecond < theOneEndSecond && otherEndSecond > theOneStartSecond)
+			{
+				OK = 0;
+			}
+		}
+		otherSchedule = otherSchedule -> next;
+	}
+	return OK;
+}

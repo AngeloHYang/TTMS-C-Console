@@ -134,7 +134,7 @@ seat_list_t seat_srv_findByRoomAndPlace(int roomID, int whichRow, int whichColum
 void seat_srv_generateSeatsForNewStudio(int studioID)
 {
 	studio_node_t* theStudio = studio_srv_findByID(studioID);
-	if (studioID != NULL)
+	if (theStudio != NULL)
 	{
 		for (int whichRow = 1; whichRow <= theStudio->data.rowsCount; whichRow++)
 		{
