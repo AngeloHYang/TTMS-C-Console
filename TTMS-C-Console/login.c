@@ -116,9 +116,9 @@ void uesrLogin()
 			}
 			else if (result->data.type == USER_CLERK)
 			{
-				;
+				extern int clerkLogin(account_list_t theUser);
+				toExit = clerkLogin(result);
 			}
 		}
 	}
-
 }

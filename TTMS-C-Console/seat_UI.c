@@ -5,6 +5,7 @@
 #include "inputMethod.h"
 #include "schedule_srv.h"
 #include "ticket_srv.h"
+#include "account_srv.h"
 
 // Invalid studio return -1, else 0;
 int seat_UI_printSeatNoMovie(int howManySpace, int studioID)
@@ -184,4 +185,105 @@ void seat_UI_printSeat(int howManySpace, schedule_list_t theSchedule)
 			printf("\n");
 		}
 	}
+}
+
+void ticket_UI_sell(schedule_list_t theSchedule, int secondNow, account_list_t theUser)
+{
+	int timeToExit = 0;
+	
+	while (timeToExit == 0)
+	{
+		setBackgroundColor(7);
+		setFontColor(0);
+		system("cls");
+
+		printTitleWithCurrentTime("Sell a ticket", 14);
+		printf("\n\n");
+		printMiddleAddjusted("You can't book if it's out of date", 35);
+
+		printf("\n\n");
+
+		int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(theSchedule->data.date, theSchedule->data.time);
+		if (scheduleStartSecond <= secondNow)
+		{
+			printMiddleAddjusted("It's out of date", 17);
+			printf("\n\n");
+			keyToContinue("go back", 8);
+			timeToExit = 1;
+			break;
+		}
+
+		printMiddleAddjusted("Seats:", 7);
+		printf("\n");
+		studio_list_t theStudioToModify = studio_srv_findByID(theSchedule->data.studio_ID);
+
+		seat_UI_printSeat(50 - theStudioToModify->data.colsCount / 2, theSchedule);
+		printf("\n\n");
+
+		printMultipleTimes(' ', 20);
+		printf("The seat     ");
+		int column;
+		int row;
+		printf("column: ");
+		column = inputInt();
+		printf("    row: ");
+		row = inputInt();
+		printf("\n");
+		printf("\n");
+		if (areYouSure() == 1)
+		{
+			printf("\n\n");
+			if (column < 1 || column > theStudioToModify->data.colsCount || row < 1 || row > theStudioToModify->data.rowsCount)
+			{
+				printMiddleAddjusted("Invalid seat!", 14);
+				printf("\n\n");
+				keyToContinue("go back", 8);
+				break;
+			}
+			else
+			{
+				seat_list_t theSeat = seat_srv_findByRoomAndPlace(theSchedule->data.studio_ID, row, column);
+				if (theSeat->data.status != SEAT_GOOD)
+				{
+					printMiddleAddjusted("Invalid seat!", 14);
+					printf("\n\n");
+					keyToContinue("go back", 8);
+					break;
+				}
+				else
+				{
+					ticket_list_t theTicket = ticket_srv_findTicketByScheduleAndSeat(theSchedule, row, column);
+					if (theTicket->data.status == TICKET_SOLD)
+					{
+						printMiddleAddjusted("Seat taken!", 12);
+						printf("\n\n");
+						keyToContinue("go back", 8);
+						break;
+					}
+					else
+					{
+						theTicket->data.status = TICKET_SOLD;
+						theTicket->data.soldBy = theUser->data.ID;
+						printMiddleAddjusted("Ticket sold!", 13);
+						printf("\n\n");
+						keyToContinue("go back", 8);
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			printf("\n\n");
+			printMiddleAddjusted("Ticket not sold!", 17);
+			printf("\n\n");
+			keyToContinue("go back", 8);
+			timeToExit = 1;
+		}
+	}
+}
+
+void ticket_UI_return(schedule_list_t theSchedule, int secondNow, account_list_t theUser)
+{
+
 }

@@ -81,7 +81,11 @@ extern void schedule_srv_deleteScheduleByPlayID(int playID);
 
 extern int schedule_srv_howManyInToto();
 
+extern int schedule_srv_howManyAvailable(int secondNow);
+
 // 不存在则为NULL
 extern schedule_node_t* schedule_srv_findByWhichOne(int whichOne);
+
+extern schedule_node_t* schedule_srv_findByWhichOneAvailable(int whichOne, int secondNow);
 
 extern int schedule_srv_checkIfConflictsWithOtherSchedules(schedule_t theSchedule);

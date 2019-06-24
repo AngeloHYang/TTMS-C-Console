@@ -180,6 +180,23 @@ int schedule_srv_howManyInToto()
 	return counter;
 }
 
+int schedule_srv_howManyAvailable(int secondNow)
+{
+	schedule_node_t* thisOne = schedule_head->next;
+	int counter = 0;
+	while (thisOne != schedule_head)
+	{
+		if (thisOne->data.exist == 1)
+		{
+			int scheduleStartSecond = user_date_t_And_user_time_t_ToSecond(thisOne->data.date, thisOne->data.time);
+			if (scheduleStartSecond > secondNow)
+				counter++;
+		}
+		thisOne = thisOne->next;
+	}
+	return counter;
+}
+
 // 不存在则为NULL
 schedule_node_t* schedule_srv_findByWhichOne(int whichOne)
 {
@@ -195,6 +212,30 @@ schedule_node_t* schedule_srv_findByWhichOne(int whichOne)
 			return thisOne;
 		thisOne = thisOne->next;
 		if (thisOne->data.exist == 1)
+		{
+			counter++;
+		}
+	}
+	return NULL;
+}
+
+schedule_node_t* schedule_srv_findByWhichOneAvailable(int whichOne, int secondNow)
+{
+	int counter = 0;
+	schedule_node_t* thisOne = schedule_head->next;
+	int secondThisOne = user_date_t_And_user_time_t_ToSecond(thisOne->data.date, thisOne->data.time);
+
+	if (thisOne != schedule_head && thisOne->data.exist == 1 && secondThisOne > secondNow)
+	{
+		counter = 1;
+	}
+	while (thisOne != schedule_head)
+	{
+		if (counter == whichOne && thisOne->data.exist == 1 && secondThisOne > secondNow)
+			return thisOne;
+		thisOne = thisOne->next;
+		secondThisOne = user_date_t_And_user_time_t_ToSecond(thisOne->data.date, thisOne->data.time);
+		if (thisOne->data.exist == 1 && secondThisOne > secondNow)
 		{
 			counter++;
 		}
