@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{046d430d-6ab3-4bb7-aa19-b9d3fa3442c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{af57de4d-e97e-441c-aa3f-caed37b65275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Service">
+      <UniqueIdentifier>{60a8792c-685c-430a-8ef0-d07b13a92042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Persistence">
+      <UniqueIdentifier>{e929e399-e714-49d3-9e83-dc141c6e2abe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Service">
+      <UniqueIdentifier>{06bfcc6e-3878-4313-b321-c12760c5e9f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Persistence">
+      <UniqueIdentifier>{1e6c6aa1-64bb-4cf5-81f3-0c8458346f5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\UI">
+      <UniqueIdentifier>{86a4f494-3695-49d3-9c2c-505f72eefce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\UI">
+      <UniqueIdentifier>{b796e3de-9da7-4927-8220-be4404799148}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="common.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="listTestDrv.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="studio_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="studio_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="test.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TTMS.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="totalLoadANDSave.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="play_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="play_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="account_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="account_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="ticket_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="ticket_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="seat_srv.c">
+      <Filter>源文件\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="seat_pers.c">
+      <Filter>源文件\Persistence</Filter>
+    </ClCompile>
+    <ClCompile Include="inputMethod.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="printChoices.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="timeRelated.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="color.c">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="account_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="templates.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="administrator.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="studio_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="seat_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="play_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="schedule_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="statics_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="clerk.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ticket_UI.c">
+      <Filter>源文件\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="listTestDrv.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="studio_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="studio_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="play_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="play_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="account_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="account_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="basicMove.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="ticket_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="ticket_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="seat_pers.h">
+      <Filter>头文件\Persistence</Filter>
+    </ClInclude>
+    <ClInclude Include="seat_srv.h">
+      <Filter>头文件\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inputMethod.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="printChoices.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="timeRelated.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="account_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="templates.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="studio_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="seat_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="play_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="schedule_UI.h">
+      <Filter>头文件\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
