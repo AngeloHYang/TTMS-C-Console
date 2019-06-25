@@ -591,7 +591,11 @@ void account_UI_viewAccounts(account_list_t theUserNow, int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyInToto() % howManyPerPage)) * 2);
+			//printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);

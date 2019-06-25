@@ -227,7 +227,10 @@ void studio_UI_viewStudiosForAdmin(int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (studio_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (studio_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
@@ -454,7 +457,11 @@ void studio_UI_viewStudiosForManager(int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (studio_srv_howManyInToto() % howManyPerPage)) * 2);
+			//printMultipleTimes('\n', (howManyPerPage - (studio_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (studio_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);

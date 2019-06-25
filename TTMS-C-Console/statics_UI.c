@@ -214,7 +214,11 @@ void statics_UI_boxOfficeRecordsViewAll(int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			//printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
@@ -786,7 +790,12 @@ void statics_UI_salesDateViewAll(int howManyPerPage, user_date_t startDate, user
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyClerkInToto() % howManyPerPage)) * 2);
+			//printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyClerkInToto() % howManyPerPage)) * 2);
+
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (account_srv_howManyClerkInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);

@@ -190,7 +190,11 @@ void play_UI_viewPlaysForManager(int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			//printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (play_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);

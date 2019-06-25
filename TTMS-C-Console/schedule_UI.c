@@ -223,7 +223,10 @@ void schedule_UI_viewSchedulesForManager(int howManyPerPage)
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (schedule_srv_howManyInToto() % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (schedule_srv_howManyInToto() % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
@@ -455,7 +458,12 @@ void schedule_UI_viewSchedulesForClerk(int howManyPerPage, int secondNow, accoun
 		}
 		else
 		{
-			printMultipleTimes('\n', (howManyPerPage - (schedule_srv_howManyAvailable(secondNow) % howManyPerPage)) * 2);
+			if (currentPage == pageSum)
+				printMultipleTimes('\n', (howManyPerPage - (schedule_srv_howManyAvailable(secondNow) % howManyPerPage)) * 2);
+			else
+				printMultipleTimes('\n', (howManyPerPage - howManyPerPage) * 2);
+
+
 		}
 
 		printMultipleTimes(' ', (100 - strlen("Return")) / 2);
